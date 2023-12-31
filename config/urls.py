@@ -17,7 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
-from rest_framework import routers
+from config.settings.base import env
+
+# from rest_framework import routers
 
 # router = routers.DefaultRouter()
 # router.register(r'pages', PageView, basename='task')
@@ -32,4 +34,5 @@ if settings.DEBUG:
     print("*/__debug__/ dahil edildi")
     urlpatterns.append(path('admin/', admin.site.urls))
     urlpatterns.append(path('__debug__/', include(debug_toolbar.urls)))
-
+else:
+    urlpatterns.append(path(f'{env("ADMIN_PATH")}/', admin.site.urls))
