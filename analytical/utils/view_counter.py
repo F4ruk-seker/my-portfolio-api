@@ -56,15 +56,18 @@ class ViewCountWithRule:
 
     def action(self):
         if self.can():
-            _ = ViewModel.objects.create(
+            _ = self.create_view()
+            # self.page.save()
+            self.page.view.add(_)
+
+    def create_view(self):
+        return ViewModel.objects.create(
                 visit_time=timezone.now(),
                 ip_address=self.ip_address,
                 is_i_am=self.is_admin_user(),
                 ip_data=self.get_ip_data(),
                 user_agent=str(self.get_user_agent())
             )
-            # self.page.save()
-            self.page.view.add(_)
 
     def __call__(self, *args, **kwargs):
         self.action()

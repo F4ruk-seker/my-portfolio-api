@@ -3,7 +3,9 @@ from message.models import MessageModel
 
 
 class MessageSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = MessageModel
         fields = '__all__'
+        # exclude = ('sender_agent', 'id')
 
