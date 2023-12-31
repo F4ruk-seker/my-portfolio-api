@@ -61,7 +61,8 @@ MIDDLEWARE = [
 ]+[
     # 'analytical.middleware.AnalyticalMiddleware'
 ]+[
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'

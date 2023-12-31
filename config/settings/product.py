@@ -48,9 +48,5 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True  # temp for server settings
-INSTALLED_APPS.append('corsheaders')
-MIDDLEWARE.append('corsheaders.middleware.CorsMiddleware')
-MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
-
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
