@@ -27,7 +27,6 @@ environ.Env.read_env(BASE_DIR.joinpath('.env'))
 
 # Application definition
 
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
