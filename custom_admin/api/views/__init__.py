@@ -1,0 +1,2 @@
+from .page_manage_view import PageManageRetrieveUpdateDestroyAPIView
+from .page_list import PageListView
