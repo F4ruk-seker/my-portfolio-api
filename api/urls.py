@@ -12,7 +12,7 @@ urlpatterns = [
     path('message/', include('message.api.urls'), name='pages'),
     path('auth/', include('custom_auth.api.urls'), name='pages'),
     path('admin/', include('custom_admin.api.urls'), name='custom_admin'),
-
+    path('project/', include('projects.api.urls'), name='project'),
 ]
 
 

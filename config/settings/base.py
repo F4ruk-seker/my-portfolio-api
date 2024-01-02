@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'analytical',
     'message',
     'tags',
-    'projects'
+    'projects',
+    'media_manager',
 ]+[
     'rest_framework',
     # 'rest_framework.authtoken',
