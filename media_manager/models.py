@@ -26,9 +26,9 @@ class MediaModel(models.Model):
     video_source_type = models.CharField(
         max_length=2,
         choices=VideoSourceType.choices,
-        blank=True,  # Boş bırakılabilir
-        null=True,   # Null değer alabilir
-        verbose_name="Video Source Type"  # İsteğe bağlı: Daha açıklayıcı bir alan adı
+        blank=True,
+        null=True,
+        verbose_name="Video Source Type"
     )
 
     url = models.TextField(help_text='allow only cdn')
@@ -39,8 +39,7 @@ class MediaModel(models.Model):
         ...
 
     def save(self, *args, **kwargs):
-        # Eğer media_type "Video" ise ve video_source_type değeri boşsa, default bir değer atayabilirsiniz.
         if self.media_type == self.MediaType.VIDEO and not self.video_source_type:
-            self.video_source_type = self.VideoSourceType.GOOGLE_DRIVE  # Varsayılan değeri burada "Google Drive" olarak ayarladım, siz isteğinize göre değiştirebilirsiniz.
+            self.video_source_type = self.VideoSourceType.GOOGLE_DRIVE
         super().save(*args, **kwargs)
 
