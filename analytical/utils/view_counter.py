@@ -14,6 +14,7 @@ class ViewCountWithRule:
         self.logger = logging.getLogger('ViewCountWithRule')
 
     def can(self):
+
         if self.page is not None:
             now = timezone.now()
             # if vs := ViewModel.objects.filter(ip_address=self.ip_address).order_by('-visit_time').first():
@@ -61,12 +62,16 @@ class ViewCountWithRule:
             self.page.view.add(_)
 
     def create_view(self):
+
         return ViewModel.objects.create(
                 visit_time=timezone.now(),
                 ip_address=self.ip_address,
                 is_i_am=self.is_admin_user(),
                 ip_data=self.get_ip_data(),
-                user_agent=str(self.get_user_agent())
+                user_agent=str(self.get_user_agent()),
+                query_string=self.request.META['QUERY_STRING'],
+                request_type=self.request.META['REQUEST_METHOD'],
+                request_data=self.request.META['HTTP_SEC_CH_UA']
             )
 
     def __call__(self, *args, **kwargs):

@@ -14,6 +14,9 @@ class ViewModel(models.Model):
     ip_data = models.JSONField(null=True, default=default_ip_data, blank=True)
     is_i_am = models.BooleanField(default=False)
     user_agent = models.TextField(null=True, default=None, blank=True, editable=False)
+    query_string = models.TextField(null=True, default=None, blank=True)
+    request_type = models.CharField(max_length=20, null=True, default=None, blank=True)
+    request_data = models.TextField(null=True, default=None, blank=True)
 
     def __str__(self):
         visited_time = self.visit_time.strftime("%Y-%B-%d %H:%M")
