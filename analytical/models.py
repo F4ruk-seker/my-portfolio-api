@@ -16,6 +16,7 @@ class ViewModel(models.Model):
     user_agent = models.TextField(null=True, default=None, blank=True, editable=False)
     query_string = models.TextField(null=True, default=None, blank=True)
     request_type = models.CharField(max_length=20, null=True, default=None, blank=True)
+    http_sec_ch_ua = models.TextField(null=True, default=None, blank=True)
     request_data = models.TextField(null=True, default=None, blank=True)
 
     def __str__(self):

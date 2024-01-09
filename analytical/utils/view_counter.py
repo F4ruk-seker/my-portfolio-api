@@ -71,7 +71,8 @@ class ViewCountWithRule:
                 user_agent=str(self.get_user_agent()),
                 query_string=self.request.META['QUERY_STRING'],
                 request_type=self.request.META['REQUEST_METHOD'],
-                request_data=self.request.META['HTTP_SEC_CH_UA']
+                http_sec_ch_ua=self.request.META['HTTP_SEC_CH_UA'],
+                request_data=self.request.data
             )
 
     def __call__(self, *args, **kwargs):

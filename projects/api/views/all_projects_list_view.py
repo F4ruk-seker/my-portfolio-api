@@ -5,6 +5,7 @@ from rest_framework.filters import OrderingFilter, SearchFilter, BaseFilterBacke
 
 
 class AllProjectsListView(ListAPIView):
+    authentication_classes = []
     serializer_class = ProjectListSerializer
     queryset = ProjectModel.objects.all()
     filter_backends = [SearchFilter, OrderingFilter]

@@ -54,3 +54,26 @@ class ContextFieldModel(models.Model):
     def __str__(self):
         return f'{self.name} - {self.field_type}'
 
+
+class NavbarModel(models.Model):
+    name = models.CharField(max_length=30)
+    items = models.ManyToManyField('NavbarItemModel')
+    # sticky = models.BooleanField()
+    # mobile_extend = models.BooleanField()
+
+
+class NavbarItemModel(models.Model):
+    text = models.CharField(max_length=255)
+    icon = models.CharField(max_length=50, default=None, blank=True, null=True)
+    icon_position = models.CharField(max_length=10, choices=[('start', 'Start'), ('end', 'End')], blank=True, default=None)
+    display_text_on_hover_pc = models.BooleanField(default=True)
+    hide_text_on_pc = models.BooleanField(default=False)
+    hide_text_on_mobile = models.BooleanField(default=True)
+    navbar_item_position = models.CharField(max_length=10, choices=[('start', 'Start'), ('center', 'Center'), ('end', 'End')])
+    url_type = models.CharField(max_length=20, choices=[('hashtag', 'Hashtag'), ('internal', 'Internal'), ('external', 'External')])
+    internal_url = models.CharField(max_length=255, blank=True, null=True)
+    external_url = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return f'nav {self.text}'
+
