@@ -4,9 +4,9 @@ from tags.api.serializers import ProgramingLanguageSerializer, ToolSerializers
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    word_count = serializers.SerializerMethodField()
-    programing_languages = ProgramingLanguageSerializer(many=True)
-    used_tools = ToolSerializers(many=True)
+    word_count = serializers.SerializerMethodField(required=False, read_only=True)
+    programing_languages = ProgramingLanguageSerializer(many=True, required=False)
+    used_tools = ToolSerializers(many=True, required=False)
 
     @staticmethod
     def get_word_count(instance):
@@ -17,4 +17,12 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = ProjectModel
         fields = '__all__'
 
+    def update(self, instance, validated_data):
+        validated_data.pop('word_count', None)
+        validated_data.pop('programing_languages', None)
+        validated_data.pop('used_tools', None)
 
+        # Your custom logic for updating the instance with the nested data
+
+        instance = super().update(instance, validated_data)
+        return instance
