@@ -16,6 +16,7 @@ class ProgramingLanguageModel(models.Model):
 
 
 class ToolModel(models.Model):
+    name = models.CharField(max_length=50)
 
     class IconType(models.TextChoices):
         VIRTUAL = "1", "virtual"
