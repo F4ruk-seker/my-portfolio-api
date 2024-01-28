@@ -5,7 +5,7 @@ from projects.api.serializers import ProjectListSerializer
 from projects.models import ProjectModel
 from rest_framework.filters import OrderingFilter, SearchFilter, BaseFilterBackend
 from tags.models import ToolModel, ProgramingLanguageModel
-from tags.api.serializers import ProgramingLanguageSerializer, ToolSerializers
+from tags.api.serializers import ProgramingLanguageSerializer, ToolSerializer
 
 
 class AllProjectsListView(ListAPIView):
@@ -20,16 +20,8 @@ class AllProjectsListView(ListAPIView):
         result: dict = serializer.data
         filter_keys: dict = {
             'languages': ProgramingLanguageSerializer(instance=ProgramingLanguageModel.objects.all(), many=1).data,
-            'tools': ToolSerializers(instance=ToolModel.objects.all(), many=1).data,
+            'tools': ToolSerializer(instance=ToolModel.objects.all(), many=1).data,
         }
 
         return Response({'result': result, 'filter_keys': filter_keys})
 
-    # def get_queryset(self):
-    #     return {
-    #         'projects': super().get_queryset(),
-    #         'filter_keys': {
-    #             'languages': ProgramingLanguageSerializer(initial=ProgramingLanguageModel.objects.all(), many=1).data,
-    #             'tools': ToolSerializers(initial=ToolModel.objects.all(), many=1).data,
-    #         }
-    #     }

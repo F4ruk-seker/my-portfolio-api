@@ -1,3 +1,3 @@
-from .tool_serializer import ToolSerializers
+from .tool_serializer import ToolSerializer
 from .programing_language_serializer import ProgramingLanguageSerializer
 
