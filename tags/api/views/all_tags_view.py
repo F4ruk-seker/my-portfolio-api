@@ -8,11 +8,17 @@ class AllTagsListView(APIView):
     authentication_classes = []
 
     def get(self, request, *args, **kwargs):
-        tags = dir(models)
+        model_names: list = [name for name in dir(models) if name.endswith('Model')]
         result: dict = {}
-        for tag in tags:
-            if tag.endswith('Model'):
-                serializer = getattr(tags_serializers, tag.replace('Model', 'Serializer'))
-                result[tag] = serializer(instance=getattr(models, tag).objects.all(), many=True).data
-        return Response(result)
 
+        for model_name in model_names:
+            model_class = getattr(models, model_name)
+            serializer_class_name: str = model_name.replace('Model', 'Serializer')
+
+            if hasattr(tags_serializers, serializer_class_name):
+                serializer_class = getattr(tags_serializers, serializer_class_name)
+                instances: model_class = model_class.objects.all()
+                serialized_data = serializer_class(instance=instances, many=True).data
+                result[model_name]: dict = serialized_data
+
+        return Response(result)
