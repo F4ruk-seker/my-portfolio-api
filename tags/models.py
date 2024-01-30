@@ -2,7 +2,7 @@ from django.db import models
 
 
 class TagCategoryModel(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, default=None)
     tags = models.ManyToManyField('TagModel', blank=True)
 
     def __str__(self):
@@ -10,13 +10,13 @@ class TagCategoryModel(models.Model):
 
 
 class TagModel(models.Model):
-    category = models.ForeignKey('TagCategoryModel', on_delete=models.CASCADE)
+    category = models.ForeignKey('TagCategoryModel', on_delete=models.CASCADE, null=True, blank=True)
 
     class IconType(models.TextChoices):
         FONT_AWESOME = "1", "FA"
         IMAGE = '2', 'image'
 
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, default='')
     icon_type = models.CharField(
         max_length=1,
         choices=IconType.choices,
