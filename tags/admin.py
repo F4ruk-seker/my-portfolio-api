@@ -2,6 +2,6 @@ from django.contrib import admin
 
 from .models import *
 
-admin.site.register(ToolModel)
-admin.site.register(ProgramingLanguageModel)
+admin.site.register(TagModel)
+admin.site.register(TagCategoryModel)
 

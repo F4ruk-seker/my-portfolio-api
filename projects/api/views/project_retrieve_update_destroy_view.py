@@ -1,10 +1,10 @@
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
-from projects.api.serializers import ProjectSerializer
-from projects.models import ProjectModel
+from projects.api.serializers import ContentSerializer
+from projects.models import ContentModel
 
 
 class ProjectRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
-    serializer_class = ProjectSerializer
-    queryset = ProjectModel
+    serializer_class = ContentSerializer
+    queryset = ContentModel
     lookup_field = 'slug'
 

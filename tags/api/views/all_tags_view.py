@@ -22,3 +22,4 @@ class AllTagsListView(APIView):
                 result[model_name]: dict = serialized_data
 
         return Response(result)
+

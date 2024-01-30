@@ -1,3 +1,2 @@
-from .project_serializer import ProjectSerializer
-from .project_list_serializer import ProjectListSerializer
-
+from .project_serializer import ContentSerializer
+from .project_list_serializer import ContentListSerializer

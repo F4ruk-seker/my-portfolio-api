@@ -1,7 +1,17 @@
 from django.db import models
 
 
-class ProgramingLanguageModel(models.Model):
+class TagCategoryModel(models.Model):
+    name = models.CharField(max_length=50)
+    tags = models.ManyToManyField('TagModel', blank=True)
+
+    def __str__(self):
+        return str(self.name)
+
+
+class TagModel(models.Model):
+    category = models.ForeignKey('TagCategoryModel', on_delete=models.CASCADE)
+
     class IconType(models.TextChoices):
         FONT_AWESOME = "1", "FA"
         IMAGE = '2', 'image'
@@ -12,13 +22,5 @@ class ProgramingLanguageModel(models.Model):
         choices=IconType.choices,
         default=IconType.FONT_AWESOME
     )
-    icon = models.TextField(help_text='when call (fa/src) use this refs')
-
-
-class ToolModel(models.Model):
-    name = models.CharField(max_length=50)
-
-    class IconType(models.TextChoices):
-        VIRTUAL = "1", "virtual"
-        PHYSICAL = '2', 'physical'
+    icon = models.TextField(help_text='when call (fa/src) use this refs', blank=True)
 
