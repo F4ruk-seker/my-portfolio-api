@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     # 'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'corsheaders',
-    # 'knox'
+    'storages',
+    'dbbackup',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,10 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
+# Django-dbbackup settings
+DBBACKUP_STORAGE = 'storages.backends.gcloud.GoogleDriveStorage'
+DBBACKUP_GDRIVE_CLIENT_SECRETS_FILE = 'backup/googleusercontent.com.json'
+# DBBACKUP_GDRIVE_TOKENS_FILE = 'path/to/your/tokens.json'
+DBBACKUP_STORAGE_OPTIONS = {'gdrive_folder_id': 'your-folder-id'}  # Optional, create a folder ID in Google Drive and provide it here
+
