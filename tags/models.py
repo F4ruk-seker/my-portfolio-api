@@ -16,11 +16,12 @@ class TagModel(models.Model):
     class IconType(models.TextChoices):
         FONT_AWESOME = "1", "FA"
         IMAGE = '2', 'image'
+        NONE = '3', 'None'
 
     icon_type = models.CharField(
         max_length=1,
         choices=IconType.choices,
-        default=IconType.FONT_AWESOME
+        default=IconType.NONE
     )
     icon = models.TextField(help_text='when call (fa/src) use this refs', default=None, blank=True, null=True)
 

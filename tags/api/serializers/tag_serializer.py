@@ -7,7 +7,7 @@ class TagSerializer(ModelSerializer):
 
     @staticmethod
     def get_category(obj):
-        return obj.category.name
+        return obj.category.name if obj.category else None
 
     class Meta:
         model = TagModel

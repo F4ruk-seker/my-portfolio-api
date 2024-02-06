@@ -9,4 +9,3 @@ class TagCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = TagCategoryModel
         fields: str = '__all__'
-
