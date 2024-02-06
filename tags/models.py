@@ -25,3 +25,5 @@ class TagModel(models.Model):
     )
     icon = models.TextField(help_text='when call (fa/src) use this refs', default=None, blank=True, null=True)
 
+    def __str__(self):
+        return f'{self.name}@{self.category.name}'
