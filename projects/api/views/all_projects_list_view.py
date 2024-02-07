@@ -12,18 +12,22 @@ class AllProjectsListView(ListAPIView):
     authentication_classes = []
     serializer_class = ContentListSerializer
     queryset = ContentModel.objects.all()
-    filter_backends = [SearchFilter, OrderingFilter]
-    search_fields = 'slug', 'title', 'programing_languages__name'
+    filter_backends: list = [SearchFilter, OrderingFilter]
+    search_fields: tuple = 'slug', 'title', 'programing_languages__name'
 
     def get_queryset(self):
-        return ContentModel.objects.filter(content_type__name='project').all()
+        if tags := self.request.query_params.get('tags'):
+            tags.split(',')
+            return ContentModel.objects.filter(content_type__name='project', tags__in=tags).all()
+        else:
+            return ContentModel.objects.filter(content_type__name='project').all()
 
-    def list(self, request, *args, **kwargs):
-        serializer = self.get_serializer(self.get_queryset(), many=True)
-        result: dict = serializer.data
-        filter_keys: dict = {
-            'tags': TagCategorySerializer(instance=TagCategoryModel.objects.all(), many=True).data,
-        }
-
-        return Response({'result': result, 'filter_keys': filter_keys})
+    # def list(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(self.get_queryset(), many=True)
+    #     result: dict = serializer.data
+    #     filter_keys: dict = {
+    #         'tags': TagCategorySerializer(instance=TagCategoryModel.objects.all(), many=True).data,
+    #     }
+    #
+    #     return Response({'result': result, 'filter_keys': filter_keys})
 

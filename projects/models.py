@@ -22,6 +22,6 @@ class ContentModel(models.Model):
 
 class ContentTypeModel(models.Model):
     name = models.CharField(max_length=30, primary_key=True)
-    sub_tags = models.ManyToManyField('tags.TagModel')
+    sub_tags = models.ManyToManyField('tags.TagCategoryModel', blank=True)
 
 

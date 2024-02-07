@@ -4,6 +4,7 @@ from django.db import models
 class TagCategoryModel(models.Model):
     name = models.CharField(max_length=50, default=None)
     tags = models.ManyToManyField('TagModel', blank=True)
+    order = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return str(self.name)
