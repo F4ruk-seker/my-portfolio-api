@@ -6,7 +6,7 @@ app_name = "project"
 
 urlpatterns = [
     path('type/<name>', ContentFlagsView.as_view(), name='content_flags'),
-    path('all/', AllProjectsListView.as_view(), name='all_projects'),
+    path('all/<content_type>', AllProjectsListView.as_view(), name='all_projects'),
     path('edit/<str:slug>/', ProjectRetrieveUpdateDestroyView.as_view(), name='project'),
     path('<str:slug>/', ProjectRetrieveView.as_view(), name='project'),
 ]
