@@ -8,4 +8,3 @@ class ContentFlagsView(RetrieveAPIView):
     lookup_field = 'name'
     queryset = ContentTypeModel
     serializer_class = ContentTypeSerializer
-
