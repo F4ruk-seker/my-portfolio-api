@@ -312,10 +312,12 @@ fabric.properties
 # Ignore everything but code style settings and run configurations
 # that are supposed to be shared within teams.
 
-
+backup_service
+backup_service/*
+backup_service/
+/backup_service/
+/backup_service/*
+*/backup/
+*/backup/*
 
 # End of https://www.toptal.com/developers/gitignore/api/django,pycharm+all,jetbrains+all
-
-backup
-backup/*
-backup/
