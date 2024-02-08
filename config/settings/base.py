@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'tags',
     'projects',
     'media_manager',
+    'todo'
 ]+[
     'rest_framework',
     # 'rest_framework.authtoken',
