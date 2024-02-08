@@ -10,30 +10,37 @@ from tags.api.serializers import TagCategorySerializer
 class AllProjectsListView(ListAPIView):
     authentication_classes = []
     serializer_class = ContentListSerializer
-    # queryset = ContentModel.objects.all()
     filter_backends: list = [SearchFilter, OrderingFilter]
-    search_fields: tuple = 'slug', 'title', 'programing_languages__name'
+    search_fields: tuple = 'title', 'content_type__name', 'tags__name'
+
     lookup_field = 'content_type'
+    # queryset = ContentModel.objects
 
-    def get_queryset(self, content_type):
-        query: dict = {
-            'content_type__name': content_type,
+    def get_queryset(self, *args, **kwargs):
+        queryset = ContentModel.objects.all()
 
-        }
-        if tags := self.request.query_params.get('tags'):
-            tags.split(',')
+        content_type_param = self.request.query_params.get('content_type')
+        if content_type_param:
+            queryset = queryset.filter(content_type__name=content_type_param)
 
-            # return ContentModel.objects.filter(content_type__name='project', tags__in=tags).all()
-        # else:
-        #     return ContentModel.objects.filter(content_type__name='project').all()
-        return ContentModel.objects.filter(**query).all()
+        tags = self.request.query_params.get('tags')
+        if tags:
+            tag_list = tags.split(',')
+            queryset = queryset.filter(tags__name__in=tag_list)
 
-    def list(self, request, *args, **kwargs):
-        content_type = kwargs.get('content_type')
-        serializer = self.get_serializer(self.get_queryset(content_type), many=True)
-        # filter_keys: dict = {
-        #     'tags': TagCategorySerializer(instance=TagCategoryModel.objects.all(), many=True).data,
-        # }
+        return queryset
+    # def get_queryset(self, content_type='', *args, **kwargs):
 
-        return Response(serializer.data)
+        # if queryset := super().get_queryset():
+        #     query: dict = {
+        #         'content_type__name': content_type,
+        #     }
+        #     if tags := self.request.query_params.get('tags'):
+        #         query['tags__in'] = [tag_id for tag_id in tags.split(',') if tag_id]
+        #         return queryset.objects.filter(**query).all()
 
+    # def list(self, request, *args, **kwargs):
+    #     content_type = kwargs.get('content_type')
+    #     serializer = self.get_serializer(self.get_queryset(content_type=content_type), many=True)
+    #     return Response(serializer.data)
+    #

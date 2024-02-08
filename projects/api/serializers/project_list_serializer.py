@@ -10,6 +10,6 @@ from projects.models import ContentModel
 class ContentListSerializer(ContentSerializer):
     class Meta:
         model = ContentModel
-        fields = '__all__'
-        # exclude = ('context',)
+        # fields = '__all__'
+        exclude = ('text',)
 
