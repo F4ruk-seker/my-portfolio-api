@@ -25,7 +25,8 @@ class AllProjectsListView(ListAPIView):
 
         tags = self.request.query_params.get('tags')
         if tags:
-            tag_list = tags.split(',')
+            tag_list = [tag for tag in tags.split(',') if tag]
+            # tag_list = tags.split(',')
             queryset = queryset.filter(tags__name__in=tag_list)
 
         return queryset
