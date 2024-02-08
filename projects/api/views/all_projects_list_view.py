@@ -26,7 +26,7 @@ class AllProjectsListView(ListAPIView):
         tags = self.request.query_params.get('tags')
         if tags:
             tag_list = [tag for tag in tags.split(',') if tag]
-            queryset = queryset.filter(tags__in=tag_list)
+            queryset = queryset.filter(tags__in=tag_list)  # tag list eşleşmede çoklu dönüş yapıyor fix
         return queryset
     # def get_queryset(self, content_type='', *args, **kwargs):
 
