@@ -11,7 +11,7 @@ class AllProjectsListView(ListAPIView):
     authentication_classes = []
     serializer_class = ContentListSerializer
     filter_backends: list = [SearchFilter, OrderingFilter]
-    search_fields: tuple = 'title', 'content_type__name', 'tags__name'
+    search_fields: tuple = 'title', 'content_type__name', 'tag_id'
 
     lookup_field = 'content_type'
     # queryset = ContentModel.objects
@@ -26,8 +26,7 @@ class AllProjectsListView(ListAPIView):
         tags = self.request.query_params.get('tags')
         if tags:
             tag_list = [tag for tag in tags.split(',') if tag]
-            queryset = queryset.filter(tags__name__in=tag_list)
-
+            queryset = queryset.filter(tags__in=tag_list)
         return queryset
     # def get_queryset(self, content_type='', *args, **kwargs):
 
