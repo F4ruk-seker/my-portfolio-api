@@ -5,6 +5,7 @@ from projects.models import ContentModel
 from rest_framework.filters import OrderingFilter, SearchFilter, BaseFilterBackend
 from tags.models import TagCategoryModel
 from tags.api.serializers import TagCategorySerializer
+from django.db.models import Q
 
 
 class AllProjectsListView(ListAPIView):
@@ -26,7 +27,8 @@ class AllProjectsListView(ListAPIView):
         tags = self.request.query_params.get('tags')
         if tags:
             tag_list = [tag for tag in tags.split(',') if tag]
-            queryset = queryset.filter(tags__in=tag_list)  # tag list eşleşmede çoklu dönüş yapıyor fix
+            queryset = queryset.filter(Q(tags__id__in=tag_list)).distinct()  # tag list eşleşmede çoklu dönüş yapıyor fix
+            # queryset = queryset.distinct()
         return queryset
     # def get_queryset(self, content_type='', *args, **kwargs):
 
