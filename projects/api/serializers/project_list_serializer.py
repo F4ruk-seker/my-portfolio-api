@@ -1,5 +1,6 @@
 from .project_serializer import ContentSerializer
 from projects.models import ContentModel
+from rest_framework import serializers
 
 #
 # @staticmethod
@@ -8,6 +9,8 @@ from projects.models import ContentModel
 
 
 class ContentListSerializer(ContentSerializer):
+    update = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+
     class Meta:
         model = ContentModel
         # fields = '__all__'
