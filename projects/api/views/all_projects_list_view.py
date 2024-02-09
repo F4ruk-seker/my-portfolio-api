@@ -1,10 +1,7 @@
 from rest_framework.generics import ListAPIView
-from rest_framework.response import Response
 from projects.api.serializers import ContentListSerializer
 from projects.models import ContentModel
 from rest_framework.filters import OrderingFilter, SearchFilter, BaseFilterBackend
-from tags.models import TagCategoryModel
-from tags.api.serializers import TagCategorySerializer
 from django.db.models import Q
 
 
