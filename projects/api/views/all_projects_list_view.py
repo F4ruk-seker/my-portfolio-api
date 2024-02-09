@@ -15,7 +15,6 @@ class AllProjectsListView(ListAPIView):
     search_fields: tuple = 'title', 'content_type__name', 'tag_id'
 
     lookup_field = 'content_type'
-    # queryset = ContentModel.objects
 
     def get_queryset(self, *args, **kwargs):
         queryset = ContentModel.objects.all()
@@ -26,22 +25,5 @@ class AllProjectsListView(ListAPIView):
 
         tags = self.request.query_params.get('tags')
         if tags:
-            tag_list = [tag for tag in tags.split(',') if tag]
-            queryset = queryset.filter(Q(tags__id__in=tag_list)).distinct()  # tag list eşleşmede çoklu dönüş yapıyor fix
-            # queryset = queryset.distinct()
+            queryset = queryset.filter(Q(tags__id__in=[tag for tag in tags.split(',') if tag])).distinct()
         return queryset
-    # def get_queryset(self, content_type='', *args, **kwargs):
-
-        # if queryset := super().get_queryset():
-        #     query: dict = {
-        #         'content_type__name': content_type,
-        #     }
-        #     if tags := self.request.query_params.get('tags'):
-        #         query['tags__in'] = [tag_id for tag_id in tags.split(',') if tag_id]
-        #         return queryset.objects.filter(**query).all()
-
-    # def list(self, request, *args, **kwargs):
-    #     content_type = kwargs.get('content_type')
-    #     serializer = self.get_serializer(self.get_queryset(content_type=content_type), many=True)
-    #     return Response(serializer.data)
-    #
