@@ -1,11 +1,12 @@
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from custom_auth.api.permissions import OtpAllow
 from custom_auth.models import OTPModel
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import CustomTokenObtainPairSerializer
+from custom_auth.api.serializers import CustomTokenObtainPairSerializer
 
 
 class OTPView(APIView):
@@ -32,3 +33,13 @@ class OTPTestView(APIView):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+
+# split
+
+
+class UserRegisterView(CreateAPIView):
+    ...
+
+
+from .user_register_view import UserRegisterView
+
