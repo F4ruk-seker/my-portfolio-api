@@ -4,10 +4,15 @@ from tags.api.serializers.tag_serializer import TagSerializer
 
 
 class ContentSerializer(serializers.ModelSerializer):
+    # word_count = serializers.SerializerMethodField(required=False, read_only=True)
     # programing_languages = TagSerializer(many=True, required=False)
     # used_tools = TagSerializer(many=True, required=False)
     # context = ContextSerializer(many=True, required=False)
     tags = TagSerializer(many=True, required=False)
+
+    @staticmethod
+    def get_word_count(instance):
+        return len(instance.text.split(' ')) if instance.text else 0
 
     class Meta:
         model = ContentModel
