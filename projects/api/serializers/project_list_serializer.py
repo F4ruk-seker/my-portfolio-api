@@ -1,6 +1,7 @@
 from .project_serializer import ContentSerializer
 from projects.models import ContentModel
 from rest_framework import serializers
+from typing import List
 
 #
 # @staticmethod
@@ -11,8 +12,14 @@ from rest_framework import serializers
 class ContentListSerializer(ContentSerializer):
     update = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
 
+    comments = serializers.SerializerMethodField()
+
+    @staticmethod
+    def get_comments(obj) -> List:
+        return []
+
     class Meta:
         model = ContentModel
         # fields = '__all__'
-        exclude = ('text',)
+        exclude: tuple = 'text',
 

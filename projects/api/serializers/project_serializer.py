@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from .comment_serializer import ContentCommentSerializer
 from projects.models import ContentModel
 from tags.api.serializers.tag_serializer import TagSerializer
 
@@ -8,6 +10,7 @@ class ContentSerializer(serializers.ModelSerializer):
     # programing_languages = TagSerializer(many=True, required=False)
     # used_tools = TagSerializer(many=True, required=False)
     # context = ContextSerializer(many=True, required=False)
+    comments = ContentCommentSerializer(many=True)
     tags = TagSerializer(many=True, required=False)
 
     @staticmethod
