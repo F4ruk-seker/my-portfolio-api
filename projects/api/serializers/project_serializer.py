@@ -26,6 +26,7 @@ class ContentSerializer(serializers.ModelSerializer):
         validated_data.pop('programing_languages', None)
         validated_data.pop('used_tools', None)
         validated_data.pop('tags', None)
+        validated_data.pop('comments', None)
 
         instance = super().update(instance, validated_data)
         return instance
