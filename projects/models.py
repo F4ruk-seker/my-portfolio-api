@@ -10,6 +10,8 @@ class ContentModel(models.Model):
     title = models.CharField(max_length=50)
     slug = AutoSlugField(populate_from='title')
 
+    show = models.BooleanField(default=True)
+
     ceo_description = models.CharField(max_length=500)
     ceo_image_url = models.TextField(default=None, blank=True)
     ceo_image_alt = models.TextField(blank=True, null=True)

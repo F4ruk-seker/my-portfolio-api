@@ -3,4 +3,5 @@ from .project_retrieve_view import ProjectRetrieveView
 from .project_retrieve_update_destroy_view import ProjectRetrieveUpdateDestroyView
 from .content_flags_view import ContentFlagsView
 from .content_comment_view import CreateCommentView
+from .project_admin_list import AdminAllProjectsListView
 

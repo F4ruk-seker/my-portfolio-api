@@ -14,7 +14,7 @@ class AllProjectsListView(ListAPIView):
     lookup_field = 'content_type'
 
     def get_queryset(self, *args, **kwargs):
-        queryset = ContentModel.objects.all()
+        queryset = ContentModel.objects.filter(show=True)
 
         content_type_param = self.request.query_params.get('content_type')
         if content_type_param:

@@ -20,6 +20,7 @@ class ContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContentModel
         fields = '__all__'
+        # exclude: tuple = 'show',
 
     def update(self, instance, validated_data):
         validated_data.pop('word_count', None)
