@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from projects.models import ContentTypeModel
 from tags.api.serializers import TagCategorySerializer
 
@@ -12,6 +12,7 @@ class ContentTypeSerializer(ModelSerializer):
 
         # Sort the 'sub_tags' based on the 'order' field
         data['sub_tags'] = sorted(data['sub_tags'], key=lambda x: x['order'])
+        # data['other_content_types'] = [content_type.name for content_type in ContentTypeModel.objects.all()]
 
         return data
 
