@@ -3,6 +3,7 @@ from rest_framework import serializers
 from .comment_serializer import ContentCommentSerializer
 from projects.models import ContentModel
 from tags.api.serializers.tag_serializer import TagSerializer
+from tags.models import TagModel
 
 
 class ContentSerializer(serializers.ModelSerializer):
@@ -11,7 +12,7 @@ class ContentSerializer(serializers.ModelSerializer):
     # used_tools = TagSerializer(many=True, required=False)
     # context = ContextSerializer(many=True, required=False)
     comments = ContentCommentSerializer(many=True)
-    tags = TagSerializer(many=True, required=False)
+    tags = TagSerializer(many=True)
 
     @staticmethod
     def get_word_count(instance):
@@ -26,9 +27,14 @@ class ContentSerializer(serializers.ModelSerializer):
         validated_data.pop('word_count', None)
         validated_data.pop('programing_languages', None)
         validated_data.pop('used_tools', None)
-        validated_data.pop('tags', None)
         validated_data.pop('comments', None)
 
+        tags_data = validated_data.pop('tags', [])
         instance = super().update(instance, validated_data)
+        instance.tags.clear()
+        for tag_data in tags_data:
+            tag = TagModel.objects.get(name=tag_data['name'])
+            instance.tags.add(tag)
+        instance.save()
         return instance
 

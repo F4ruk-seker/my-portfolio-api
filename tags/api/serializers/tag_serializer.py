@@ -3,7 +3,7 @@ from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 
 class TagSerializer(ModelSerializer):
-    category = SerializerMethodField()
+    category = SerializerMethodField(read_only=True)
 
     @staticmethod
     def get_category(obj):
