@@ -4,11 +4,13 @@ from projects.api.views import (ContentFlagsView,
                                 ProjectRetrieveView,
                                 ProjectRetrieveUpdateDestroyView,
                                 CreateCommentView,
-                                AdminAllProjectsListView)
+                                AdminAllProjectsListView,
+                                ContentsView)
 
 
 app_name = "project"
 urlpatterns = [
+    path('type/', ContentsView.as_view(), name='contents'),
     path('type/<name>', ContentFlagsView.as_view(), name='content_flags'),
     path('all/', AllProjectsListView.as_view(), name='all_projects'),
     # path('create/', ProjectRetrieveUpdateDestroyView.as_view(), name='project'),

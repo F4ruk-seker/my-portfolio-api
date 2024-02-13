@@ -8,9 +8,6 @@ from tags.models import TagModel
 
 class ContentSerializer(serializers.ModelSerializer):
     word_count = serializers.SerializerMethodField(required=False, read_only=True)
-    # programing_languages = TagSerializer(many=True, required=False)
-    # used_tools = TagSerializer(many=True, required=False)
-    # context = ContextSerializer(many=True, required=False)
     comments = ContentCommentSerializer(many=True)
     tags = TagSerializer(many=True)
 
@@ -25,8 +22,6 @@ class ContentSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         validated_data.pop('word_count', None)
-        validated_data.pop('programing_languages', None)
-        validated_data.pop('used_tools', None)
         validated_data.pop('comments', None)
 
         tags_data = validated_data.pop('tags', [])

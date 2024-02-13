@@ -10,6 +10,6 @@ class AdminAllProjectsListView(ListAPIView):
     serializer_class = ContentListSerializer
     filter_backends: list = [SearchFilter, OrderingFilter]
     search_fields: tuple = 'title', 'content_type__name', 'tags__id'
-    queryset = ContentModel.objects.all()
+    queryset = ContentModel.objects.order_by('-update')
     lookup_field = 'content_type'
 
