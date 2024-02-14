@@ -24,7 +24,7 @@ class PageModel(models.Model):
 
     context = models.ManyToManyField('pages.ContextFieldModel')
 
-    view = models.ManyToManyField('analytical.ViewModel', blank=True,default=None,editable=True)
+    view = models.ManyToManyField('analytical.ViewModel', blank=True, default=None, editable=True)
 
     def get_view(self):
         return self.view.all()

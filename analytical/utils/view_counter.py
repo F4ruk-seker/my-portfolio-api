@@ -7,21 +7,22 @@ from django.conf import settings
 
 
 class ViewCountWithRule:
-    def __init__(self, page, request):
+    def __init__(self, page, request, hourly_cooldown: bool = True):
         self.page = page
         self.request = request
         self.ip_address = self.get_client_ip()
+        self.use_hourly_cooldown = hourly_cooldown
         self.logger = logging.getLogger('ViewCountWithRule')
 
     def can(self):
 
         if self.page is not None:
             now = timezone.now()
-            # if vs := ViewModel.objects.filter(ip_address=self.ip_address).order_by('-visit_time').first():
-            if vs := self.page.view.all().filter(ip_address=self.ip_address).order_by('-visit_time').first():
-                return not vs.visit_time.hour == now.hour
-            else:
-                return True
+            if self.use_hourly_cooldown:
+                # if vs := ViewModel.objects.filter(ip_address=self.ip_address).order_by('-visit_time').first():
+                if vs := self.page.view.all().filter(ip_address=self.ip_address).order_by('-visit_time').first():
+                    return not vs.visit_time.hour == now.hour
+            return True
 
     def get_client_ip(self):
         x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')

@@ -10,10 +10,15 @@ class ContentSerializer(serializers.ModelSerializer):
     word_count = serializers.SerializerMethodField(required=False, read_only=True)
     comments = ContentCommentSerializer(many=True)
     tags = TagSerializer(many=True)
+    view = serializers.SerializerMethodField()
 
     @staticmethod
     def get_word_count(instance):
         return len(instance.text.split(' ')) if instance.text else 0
+
+    @staticmethod
+    def get_view(instance):
+        return instance.get_view().count()
 
     class Meta:
         model = ContentModel
@@ -23,6 +28,7 @@ class ContentSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         validated_data.pop('word_count', None)
         validated_data.pop('comments', None)
+        validated_data.pop('view', None)
 
         tags_data = validated_data.pop('tags', [])
         instance = super().update(instance, validated_data)

@@ -19,7 +19,8 @@ class OTPModel(models.Model):
 
     def create_hash(self):
         import pyotp
-        return pyotp.TOTP(self.otp_device).provisioning_uri(name=self.user.email, issuer_name=self.user.username)
+        return pyotp.TOTP(self.otp_device).provision
+        ing_uri(name=self.user.email, issuer_name=self.user.username)
 
     def qr_code(self):
         import pyotp

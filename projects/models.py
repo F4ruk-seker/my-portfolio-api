@@ -23,7 +23,15 @@ class ContentModel(models.Model):
 
     tags = models.ManyToManyField('tags.TagModel')
     content_type = models.ForeignKey('ContentTypeModel', on_delete=models.CASCADE)
-    comments = models.ManyToManyField('ContentCommentModel', related_name='content')
+    comments = models.ManyToManyField('ContentCommentModel', related_name='content', blank=True)
+
+    view = models.ManyToManyField('analytical.ViewModel', blank=True, default=None, editable=True)
+
+    def get_view(self):
+        return self.view.all()
+
+    def __str__(self):
+        return f"Content ({self.id}) | {self.title} | {self.content_type.name}"
 
 
 class ContentTypeModel(models.Model):
