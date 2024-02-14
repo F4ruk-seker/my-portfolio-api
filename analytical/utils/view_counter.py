@@ -70,9 +70,9 @@ class ViewCountWithRule:
                 is_i_am=self.is_admin_user(),
                 ip_data=self.get_ip_data(),
                 user_agent=str(self.get_user_agent()),
-                query_string=self.request.META['QUERY_STRING'],
-                request_type=self.request.META['REQUEST_METHOD'],
-                http_sec_ch_ua=self.request.META['HTTP_SEC_CH_UA'],
+                query_string=self.request.META.get('QUERY_STRING', None),
+                request_type=self.request.META.get('REQUEST_METHOD', None),
+                http_sec_ch_ua=self.request.META.get('HTTP_SEC_CH_UA', None),
                 request_data=self.request.data
             )
 
