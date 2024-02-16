@@ -1,7 +1,8 @@
-from .project_serializer import ContentSerializer
-from projects.models import ContentModel
+from django.utils import timesince
 from rest_framework import serializers
-from typing import List
+from projects.models import ContentModel
+from .project_serializer import ContentSerializer
+from typing import List, Dict
 
 #
 # @staticmethod
@@ -11,12 +12,19 @@ from typing import List
 
 class ContentListSerializer(ContentSerializer):
     update = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
-
+    humanize_date = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
 
     @staticmethod
     def get_comments(obj) -> List:
         return []
+
+    @staticmethod
+    def get_humanize_date(obj) -> Dict:
+        return {
+            'create': timesince.timesince(obj.created),
+            'update': timesince.timesince(obj.update),
+        }
 
     class Meta:
         model = ContentModel

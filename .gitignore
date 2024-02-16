@@ -318,3 +318,7 @@ fabric.properties
 backup_service/
 
 /backup_service/
+
+code_test
+code_test/
+code_test/*

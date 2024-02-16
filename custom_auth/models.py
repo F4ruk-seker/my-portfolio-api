@@ -1,6 +1,16 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
+import pyotp
+
+
+"""
+FEATURE ; OTP SERVICE
+-------------------------------
+
+[ ] REGISTER DEVICE WITH MAIL
+
+"""
 
 
 class OTPModelManager(models.Manager):
@@ -17,13 +27,15 @@ class OTPModel(models.Model):
     otp_device = models.TextField(max_length=255, editable=True)
     is_active = models.BooleanField(default=True)
 
+
     def create_hash(self):
-        import pyotp
+
         return pyotp.TOTP(self.otp_device).provision
         ing_uri(name=self.user.email, issuer_name=self.user.username)
 
     def qr_code(self):
         import pyotp
+        pyotp.TOTP.generate_otp()
 
     def load_otp(self):
         pass

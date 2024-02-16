@@ -14,6 +14,7 @@ class AllProjectsListView(ListCreateAPIView):
     lookup_field = 'content_type'
 
     def get_queryset(self, *args, **kwargs):
+
         queryset = ContentModel.objects.filter(show=True)
 
         content_type_param = self.request.query_params.get('content_type')
@@ -23,4 +24,8 @@ class AllProjectsListView(ListCreateAPIView):
         tags = self.request.query_params.get('tags')
         if tags:
             queryset = queryset.filter(Q(tags__id__in=[tag for tag in tags.split(',') if tag])).distinct()
+
+        if latest := self.request.query_params.get('latest'):
+            queryset = queryset.order_by('-update')[:int(latest)]
+
         return queryset
