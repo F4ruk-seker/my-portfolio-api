@@ -9,10 +9,18 @@ class GameVideoModel(models.Model):
     show = models.BooleanField(default=True)
 
     seo_description = models.CharField(max_length=500)
-    seo_image_url = models.TextField(default=None, blank=True)
+    # seo_image_url = models.TextField(default=None, blank=True)
+
+    @property
+    def seo_image_url(self):
+        return self.video.thumbnail
+
     seo_image_alt = models.TextField(blank=True, null=True)
 
-    video = models.ForeignKey('media_manager.MediaModel', on_delete=models.CASCADE)
+    video = models.ForeignKey('media_manager.MediaModel', on_delete=models.CASCADE, blank=True)
+    music = models.ForeignKey('game.MusicInfoModel', on_delete=models.CASCADE, blank=True, null=True)
+    game = models.ForeignKey('game.GameInfoModel', on_delete=models.CASCADE, blank=True, null=True)
+
     # thumbnail = video is already has thumbnail field
     description = models.TextField(max_length=350)
 
