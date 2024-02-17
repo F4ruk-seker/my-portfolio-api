@@ -40,11 +40,9 @@ class OTPModel(models.Model):
     def load_otp(self):
         pass
 
-    def otp_verify(self):
-        pass
-
-    def say_hi(self):
-        print('hi')
+    def otp_verify(self, code: str):
+        totp = pyotp.TOTP(self.otp_device)
+        return totp.verify(code)
 
     # object = OTPModelManager()
 

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+from discord_logger import DiscordLogger
 from api.models import ApiHostModel
 from pathlib import Path
 import environ
@@ -43,7 +44,8 @@ INSTALLED_APPS = [
     'tags',
     'projects',
     'media_manager',
-    'todo'
+    'todo',
+    'game'
 ]+[
     'rest_framework',
     # 'rest_framework.authtoken',
@@ -123,3 +125,15 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
+# Custom logger
+
+DISCORD_LOGGER_WEBHOOK_URL = env('DISCORD_LOGGER_WEBHOOK_URL')
+discord_logger_options = {
+    "application_name": "My Server",
+    "service_name": "Backend DJANGO",
+    "service_icon_url": "https://github.com/f4ruk-seker.png",
+    "service_environment": "Production",
+    "default_level": "info",
+}
+CUSTOM_LOGGER = DiscordLogger(webhook_url=DISCORD_LOGGER_WEBHOOK_URL, **discord_logger_options)
