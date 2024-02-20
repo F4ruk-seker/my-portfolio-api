@@ -5,7 +5,7 @@ from .base import *
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 CSRF_TRUSTED_ORIGINS = [
     f"https://{env('PRODUCT_HOST')}/",
-    f"https://{env('PRODUCT_API_HOST')}"
+    f"https://{env('PRODUCT_API_HOST')}",
     f"https://{env('FEATURE_PRODUCT_HOST')}"
 ]
 
