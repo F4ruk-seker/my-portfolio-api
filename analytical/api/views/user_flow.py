@@ -7,9 +7,11 @@ from pages.models import PageModel
 from projects.models import ContentModel
 from game.models import GameVideoModel
 from analytical.api.serializers import ViewSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class UserFlow(APIView):
+    permission_classes = [IsAuthenticated,]
     models_with_view_reference = [
         PageModel,
         ContentModel,
