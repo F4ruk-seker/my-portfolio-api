@@ -5,4 +5,4 @@ from analytical.models import ViewModel
 class ViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = ViewModel
-        fields = '__all__'
+        fields: str = '__all__'
