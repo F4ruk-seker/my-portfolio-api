@@ -10,8 +10,6 @@ from analytical.api.serializers import ViewSerializer
 
 
 class UserFlow(APIView):
-    authentication_classes = []
-
     models_with_view_reference = [
         PageModel,
         ContentModel,
