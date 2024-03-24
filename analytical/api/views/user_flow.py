@@ -11,8 +11,8 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class UserFlow(APIView):
-    permission_classes: list[object] = IsAuthenticated,
-    models_with_view_reference: list[object] = PageModel, ContentModel, GameVideoModel
+    permission_classes: list = [IsAuthenticated,]
+    models_with_view_reference: list = PageModel, ContentModel, GameVideoModel
 
     def get(self, request, *args, **kwargs):
         time_ranges: dict = {
