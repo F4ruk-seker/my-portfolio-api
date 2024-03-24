@@ -11,15 +11,11 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class UserFlow(APIView):
-    permission_classes = [IsAuthenticated,]
-    models_with_view_reference = [
-        PageModel,
-        ContentModel,
-        GameVideoModel
-    ]
+    permission_classes: list[object] = IsAuthenticated,
+    models_with_view_reference: list[object] = PageModel, ContentModel, GameVideoModel
 
     def get(self, request, *args, **kwargs):
-        time_ranges = {
+        time_ranges: dict = {
             'h': timezone.now() - timedelta(hours=1),
             'd': timezone.now() - timedelta(days=1),
             'w': timezone.now() - timedelta(weeks=1),
