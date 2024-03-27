@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import UserFlow
+from . import views
 
 app_name = "analytical"
 
 urlpatterns = [
-    path('ip/<ip>', UserFlow.as_view(), name='user_flow')
+    path('ip/<ip>', views.UserFlow.as_view(), name='user_flow'),
+    path('content/<pk>', views.ContentTimeTick.as_view(), name='content_time_tick')
     # path('page/', include('pages.api.urls'), name='pages'),
 ]
 

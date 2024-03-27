@@ -1,5 +1,6 @@
 from django.db import models
 from config.settings.base import env
+from typing import NoReturn
 
 
 def default_ip_data():
@@ -18,6 +19,15 @@ class ViewModel(models.Model):
     request_type = models.CharField(max_length=20, null=True, default=None, blank=True)
     http_sec_ch_ua = models.TextField(null=True, default=None, blank=True)
     request_data = models.TextField(null=True, default=None, blank=True)
+
+    time_tick_count = models.PositiveBigIntegerField(default=1)
+
+    def get_ticked_time(self) -> int:
+        return self.time_tick_count * 5  # second
+
+    def tick(self) -> NoReturn:
+        self.time_tick_count += 1
+        self.save()
 
     def __str__(self):
         visited_time = self.visit_time.strftime("%Y-%B-%d %H:%M")
@@ -44,4 +54,3 @@ class ViewModel(models.Model):
     @staticmethod
     def ip_query_service_url() -> str:
         return env('IP_QUERY_SERVICE')
-

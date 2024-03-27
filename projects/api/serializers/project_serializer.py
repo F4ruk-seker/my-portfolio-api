@@ -8,9 +8,17 @@ from tags.models import TagModel
 
 class ContentSerializer(serializers.ModelSerializer):
     word_count = serializers.SerializerMethodField(required=False, read_only=True)
+    ticket = serializers.SerializerMethodField(required=False, read_only=True)
     comments = ContentCommentSerializer(many=True)
     tags = TagSerializer(many=True)
     view = serializers.SerializerMethodField()
+
+    @staticmethod
+    def get_ticket(instance):
+
+        if hasattr(instance, 'ticket'):
+            return getattr(instance, 'ticket')
+        return None
 
     @staticmethod
     def get_word_count(instance):
@@ -29,6 +37,7 @@ class ContentSerializer(serializers.ModelSerializer):
         validated_data.pop('word_count', None)
         validated_data.pop('comments', None)
         validated_data.pop('view', None)
+        validated_data.pop('ticket', None)
 
         tags_data = validated_data.pop('tags', [])
         instance = super().update(instance, validated_data)

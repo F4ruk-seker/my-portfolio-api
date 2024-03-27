@@ -13,11 +13,17 @@ class ProjectRetrieveView(RetrieveAPIView):
 
     def get_object(self):
         obj = super().get_object()
-        ViewCountWithRule(obj, self.request, not settings.DEBUG)()
+        view = ViewCountWithRule(obj, self.request, not settings.DEBUG)
+        obj.ticket = view().id
         return obj
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
             return ContentModel.objects.all()
         return ContentModel.objects.filter(show=True)
+
+    # def get(self, *args, **kwargs):
+    #     response = super().get(*args, **kwargs)
+    #     response.data['extra'] = 'extra'
+    #     return response
 

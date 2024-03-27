@@ -61,6 +61,7 @@ class ViewCountWithRule:
             _ = self.create_view()
             # self.page.save()
             self.page.view.add(_)
+            return _
 
     def create_view(self):
 
@@ -77,6 +78,6 @@ class ViewCountWithRule:
             )
 
     def __call__(self, *args, **kwargs):
-        self.action()
+        return self.action()
 
 

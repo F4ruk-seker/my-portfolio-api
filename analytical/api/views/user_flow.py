@@ -33,10 +33,10 @@ class UserFlow(APIView):
             view['action'] = self.get_view_type(view.get('id'))
         return Response(view_data)
 
-    def get_view_type(self, id):
+    def get_view_type(self, object_id):
         for model in self.models_with_view_reference:
-            if model.objects.filter(view__id=id).exists():
-                view = model.objects.filter(view__id=id).first()
+            if model.objects.filter(view__id=object_id).exists():
+                view = model.objects.filter(view__id=object_id).first()
                 return {
                     'type': str(view),
                     'title': view.title,
