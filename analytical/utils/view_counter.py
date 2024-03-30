@@ -20,9 +20,12 @@ class ViewCountWithRule:
             now = timezone.now()
             if self.use_hourly_cooldown:
                 # if vs := ViewModel.objects.filter(ip_address=self.ip_address).order_by('-visit_time').first():
-                if vs := self.page.view.all().filter(ip_address=self.ip_address).order_by('-visit_time').first():
+                if vs := self.get_last_visit_view():
                     return not vs.visit_time.hour == now.hour
             return True
+
+    def get_last_visit_view(self):
+        return self.page.view.all().filter(ip_address=self.ip_address).order_by('-visit_time').first()
 
     def get_client_ip(self):
         x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
@@ -58,10 +61,15 @@ class ViewCountWithRule:
 
     def action(self):
         if self.can():
-            _ = self.create_view()
+            view = self.create_view()
             # self.page.save()
-            self.page.view.add(_)
-            return _
+            self.page.view.add(view)
+            return view
+        else:
+            view = self.get_last_visit_view()
+            view.reload_count_in_a_clock += 1
+            view.save()
+            return view
 
     def create_view(self):
 
