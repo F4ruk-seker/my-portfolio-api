@@ -9,8 +9,8 @@ from tags.models import TagModel
 class ContentSerializer(serializers.ModelSerializer):
     word_count = serializers.SerializerMethodField(required=False, read_only=True)
     ticket = serializers.SerializerMethodField(required=False, read_only=True)
-    comments = ContentCommentSerializer(many=True)
-    tags = TagSerializer(many=True)
+    comments = ContentCommentSerializer(many=True, required=False)
+    tags = TagSerializer(many=True, required=False)
     view = serializers.SerializerMethodField()
 
     @staticmethod
@@ -34,6 +34,10 @@ class ContentSerializer(serializers.ModelSerializer):
         # exclude: tuple = 'show',
 
     def update(self, instance, validated_data):
+
+        if instance is None:
+            return super().create(validated_data)
+
         validated_data.pop('word_count', None)
         validated_data.pop('comments', None)
         validated_data.pop('view', None)
@@ -42,6 +46,7 @@ class ContentSerializer(serializers.ModelSerializer):
         tags_data = validated_data.pop('tags', [])
         instance = super().update(instance, validated_data)
         instance.tags.clear()
+        print(tags_data)
         for tag_data in tags_data:
             tag = TagModel.objects.get(name=tag_data['name'])
             instance.tags.add(tag)

@@ -13,7 +13,7 @@ class ContentModel(models.Model):
     show = models.BooleanField(default=True)
 
     seo_description = models.CharField(max_length=500)
-    seo_image_url = models.TextField(default=None, blank=True)
+    seo_image_url = models.TextField(default=None, blank=True, null=True)
     seo_image_alt = models.TextField(blank=True, null=True)
 
     text = models.TextField(help_text='use html')

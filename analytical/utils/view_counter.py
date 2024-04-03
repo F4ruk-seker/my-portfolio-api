@@ -62,14 +62,12 @@ class ViewCountWithRule:
     def action(self):
         if self.can():
             view = self.create_view()
-            # self.page.save()
             self.page.view.add(view)
-            return view
         else:
             view = self.get_last_visit_view()
             view.reload_count_in_a_clock += 1
             view.save()
-            return view
+        return view
 
     def create_view(self):
 

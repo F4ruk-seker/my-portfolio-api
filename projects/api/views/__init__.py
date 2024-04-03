@@ -5,5 +5,5 @@ from .content_flags_view import ContentFlagsView
 from .content_comment_view import CreateCommentView
 from .project_admin_list import AdminAllProjectsListView
 from .content_types_list import ContentsView
-
+from .conntent_create_view import ContentCreateView
 
