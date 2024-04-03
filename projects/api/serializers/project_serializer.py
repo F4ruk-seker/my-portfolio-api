@@ -33,6 +33,18 @@ class ContentSerializer(serializers.ModelSerializer):
         fields = '__all__'
         # exclude: tuple = 'show',
 
+    def create(self, validated_data):
+        tags_data = validated_data.pop('tags', [])
+        # comments_data = validated_data.pop('comments', [])
+
+        instance = ContentModel.objects.create(**validated_data)
+
+        for tag_data in tags_data:
+            tag, _ = TagModel.objects.get_or_create(name=tag_data['name'])
+            instance.tags.add(tag)
+
+        return instance
+
     def update(self, instance, validated_data):
 
         validated_data.pop('word_count', None)
@@ -51,4 +63,3 @@ class ContentSerializer(serializers.ModelSerializer):
             instance.tags.add(tag)
         instance.save()
         return instance
-

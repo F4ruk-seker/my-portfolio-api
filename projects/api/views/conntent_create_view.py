@@ -6,4 +6,3 @@ from projects.api.serializers import ContentSerializer
 class ContentCreateView(CreateAPIView):
     serializer_class = ContentSerializer
 
-
