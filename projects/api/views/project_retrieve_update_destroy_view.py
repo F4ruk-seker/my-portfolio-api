@@ -6,5 +6,5 @@ from tags.models import TagModel
 
 class ProjectRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     serializer_class = ContentSerializer
-    queryset = ContentModel
+    queryset = ContentModel.objects.all()
     lookup_field = 'slug'

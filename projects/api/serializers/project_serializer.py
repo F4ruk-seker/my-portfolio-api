@@ -35,18 +35,17 @@ class ContentSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
 
-        if instance is None:
-            return super().create(validated_data)
-
         validated_data.pop('word_count', None)
         validated_data.pop('comments', None)
         validated_data.pop('view', None)
         validated_data.pop('ticket', None)
 
+        if instance is None:
+            return super().create(validated_data)
+
         tags_data = validated_data.pop('tags', [])
         instance = super().update(instance, validated_data)
         instance.tags.clear()
-        print(tags_data)
         for tag_data in tags_data:
             tag = TagModel.objects.get(name=tag_data['name'])
             instance.tags.add(tag)
