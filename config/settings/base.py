@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'projects',
     'media_manager',
     'todo',
-    'game'
+    'game',
+    'resume'
 ]+[
     'rest_framework',
     # 'rest_framework.authtoken',

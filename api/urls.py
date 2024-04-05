@@ -17,7 +17,7 @@ urlpatterns = [
     path('todo/', include('todo.api.urls'), name='todo'),
     path('game/', include('game.api.urls'), name='game'),
     path('analytical/', include('analytical.api.urls'), name='analytical'),
-
+    path('resume/', include('resume.api.urls'), name='resume'),
 ]
 
 

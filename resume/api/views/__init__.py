@@ -1,0 +1,2 @@
+from .resume_create_retive_update_destroy import ResumeView, ResumeRetrieveUpdateDestroyView
+
