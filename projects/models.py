@@ -30,8 +30,15 @@ class ContentModel(models.Model):
     def get_view(self):
         return self.view.all()
 
+    @property
+    def banner(self):
+        return self.seo_image_url
+
     def __str__(self):
         return f"Content ({self.id}) | {self.title} | {self.content_type.name}"
+
+    class Meta:
+        ordering: tuple = 'title',
 
 
 class ContentTypeModel(models.Model):

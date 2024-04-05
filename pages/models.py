@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from cloudinary.models import CloudinaryField
+from dataclasses import dataclass
 
 
 class PageModel(models.Model):
@@ -23,6 +24,20 @@ class PageModel(models.Model):
     disable_ceo = models.BooleanField(default=False)
 
     context = models.ManyToManyField('pages.ContextFieldModel')
+
+    class Meta:
+        ordering: tuple = 'title',
+
+    @property
+    def banner(self):
+        return self.image
+
+    @property
+    def content_type(self):
+        class ContentTypeDefault:
+            name = 'page'
+            sub_tags = []
+        return ContentTypeDefault
 
     view = models.ManyToManyField('analytical.ViewModel', blank=True, default=None, editable=True)
 
