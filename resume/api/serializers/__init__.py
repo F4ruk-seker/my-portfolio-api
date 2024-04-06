@@ -1,2 +1,2 @@
-from .resume_serializer import ResumeSerializer, ResumeEditSerializer
+from .resume_serializer import ResumeSerializer, ResumeEditSerializer, ResumeAlpha
 

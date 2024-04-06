@@ -10,6 +10,7 @@ app_name = "auth"
 urlpatterns = [
     path('otp_test/', OTPTestView.as_view()),
     # path('otp'),
+
     path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', UserRegisterView.as_view(), name='register')

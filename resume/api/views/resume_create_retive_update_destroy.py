@@ -1,27 +1,25 @@
 from rest_framework.generics import RetrieveAPIView, RetrieveUpdateDestroyAPIView
 from resume.models import ResumeModel
-from resume.api.serializers import ResumeSerializer, ResumeEditSerializer
+from resume.api.serializers import ResumeAlpha
+from django.shortcuts import get_object_or_404
 
 
 class ResumeView(RetrieveAPIView):
-    serializer_class = ResumeSerializer
-    lookup_field = 'user__username'
-    authentication_classes = []
+    lookup_field = None
+    serializer_class = ResumeAlpha
 
-    def get_queryset(self, **kwargs):
-        if lookup_field := self.kwargs[self.lookup_field]:
-            return ResumeModel.objects.filter(**{self.lookup_field: lookup_field})
+    def get_object(self):
+        return get_object_or_404(ResumeModel, pk=1)
 
 
 class ResumeRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
-    serializer_class = ResumeEditSerializer
-    lookup_field = 'user__username'
-    authentication_classes = []
+    lookup_field = None
+    serializer_class = ResumeAlpha
 
-    def get_queryset(self, **kwargs):
-        if lookup_field := self.kwargs[self.lookup_field]:
-            return ResumeModel.objects.filter(**{self.lookup_field: lookup_field})
+    def get_queryset(self):
+        return ResumeModel.objects.all()
 
-
+    def get_object(self):
+        return get_object_or_404(ResumeModel, pk=1)
 
 
