@@ -15,3 +15,6 @@ class ResumeModel(models.Model):
     contact = models.OneToOneField(ContactModel, on_delete=models.CASCADE, default=None, blank=True, null=True)
     description = models.TextField(default='')
 
+
+class PRT(models.Model):
+    contact = models.OneToOneField(ContactModel, on_delete=models.CASCADE, default=None, blank=True, null=True)
