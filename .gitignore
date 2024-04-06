@@ -322,3 +322,9 @@ backup_service/
 code_test
 code_test/
 code_test/*
+
+# temp
+
+smart_git
+smart_git/
+smart_git/*
