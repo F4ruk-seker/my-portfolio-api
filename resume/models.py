@@ -14,7 +14,14 @@ class ResumeModel(models.Model):
     picture = models.URLField(default=None, null=True, blank=True)
     contact = models.OneToOneField(ContactModel, on_delete=models.CASCADE, default=None, blank=True, null=True)
     description = models.TextField(default='')
+    # work_experiences = models.ManyToManyField('WorkExperiencesModel', blank=True, default=None)
 
 
-class PRT(models.Model):
-    contact = models.OneToOneField(ContactModel, on_delete=models.CASCADE, default=None, blank=True, null=True)
+class WorkExperiencesModel(models.Model):
+    title = models.CharField(max_length=30)
+    company = models.CharField(max_length=30)
+    start_date = models.CharField(max_length=10)
+    end_date = models.CharField(max_length=10)
+    experience = models.TextField()
+    show = models.BooleanField(default=True)
+
