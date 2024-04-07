@@ -1,2 +1,2 @@
-from .message_serializer import MessageSerializer
+from .message_serializer import MessageCreateSerializer
 

@@ -7,7 +7,8 @@ from .views import CreateMessageView
 app_name = "message"
 
 urlpatterns = [
-    path('create/', CreateMessageView.as_view(), name='create_message')
+    path('create/', CreateMessageView.as_view(), name='create_message'),
+
 ]
 
 
