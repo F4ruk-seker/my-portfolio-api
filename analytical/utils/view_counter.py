@@ -16,7 +16,7 @@ class ViewCountWithRule:
 
     def can(self):
         if self.page is None:
-            raise NotImplementedError('An object that can be counted is not defined')
+            raise ModuleNotFoundError('An object that can be counted is not defined')
         if self.use_hourly_cooldown:
             if vs := self.get_last_visit_view():
                 now = timezone.now()
