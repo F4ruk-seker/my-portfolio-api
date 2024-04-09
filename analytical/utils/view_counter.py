@@ -15,14 +15,14 @@ class ViewCountWithRule:
         self.logger = logging.getLogger('ViewCountWithRule')
 
     def can(self):
-
-        if self.page is not None:
-            now = timezone.now()
-            if self.use_hourly_cooldown:
-                # if vs := ViewModel.objects.filter(ip_address=self.ip_address).order_by('-visit_time').first():
-                if vs := self.get_last_visit_view():
+        if self.page is None:
+            raise NotImplementedError('An object that can be counted is not defined')
+        if self.use_hourly_cooldown:
+            if vs := self.get_last_visit_view():
+                now = timezone.now()
+                if vs.visit_time.day == now.day:
                     return not vs.visit_time.hour == now.hour
-            return True
+        return True
 
     def get_last_visit_view(self):
         return self.page.view.all().filter(ip_address=self.ip_address).order_by('-visit_time').first()
@@ -70,7 +70,6 @@ class ViewCountWithRule:
         return view
 
     def create_view(self):
-
         return ViewModel.objects.create(
                 visit_time=timezone.now(),
                 ip_address=self.ip_address,

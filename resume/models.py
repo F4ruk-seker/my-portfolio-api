@@ -25,3 +25,8 @@ class WorkExperiencesModel(models.Model):
     experience = models.TextField()
     show = models.BooleanField(default=True)
 
+    # order = models.PositiveIntegerField(default=1)
+    #
+    # class Meta:
+    #     ordering: tuple = 'order',
+
