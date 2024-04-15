@@ -28,4 +28,7 @@ class AllProjectsListView(ListCreateAPIView):
         if latest := self.request.query_params.get('latest'):
             queryset = queryset.order_by('-update')[:int(latest)]
 
+        if lang := self.request.query_params.get('lang'):
+            if lang in ContentModel.LanguageType.values:
+                queryset = queryset.filter(Q(language_type=lang))
         return queryset
