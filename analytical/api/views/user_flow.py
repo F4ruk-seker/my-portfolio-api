@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from analytical.models import ViewModel
 from pages.models import PageModel
-from projects.models import ContentModel
+from projects.models import ContentModel, ContentCommentModel
 from game.models import GameVideoModel
 from analytical.api.serializers import ViewSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -12,7 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 
 class UserFlow(APIView):
     permission_classes: list = [IsAuthenticated,]
-    models_with_view_reference: list = PageModel, ContentModel, GameVideoModel
+    models_with_view_reference: list = PageModel, ContentModel, GameVideoModel, ContentCommentModel
 
     def get(self, request, *args, **kwargs):
         time_ranges: dict = {
