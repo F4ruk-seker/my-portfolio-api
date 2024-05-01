@@ -20,4 +20,3 @@ urlpatterns = [
     path('resume/', include('resume.api.urls'), name='resume'),
 ]
 
-

@@ -13,12 +13,11 @@ class CreateCommentView(CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         content_slug = kwargs.get('slug', None)
-        content = get_object_or_404(ContentModel, slug=content_slug)
+        content = get_object_or_404(ContentModel, slug=content_slug, show=True)
         content_comment_serializer: ContentCommentSerializer = self.get_serializer(data=request.data)
-
-        if content and content_comment_serializer.is_valid(raise_exception=True):
+        if content_comment_serializer.is_valid():
             new_comment = content_comment_serializer.save()
             content.comments.add(new_comment)
             return Response(content_comment_serializer.data, status=status.HTTP_201_CREATED)
-        return Response({}, status=status.HTTP_406_NOT_ACCEPTABLE)
+        return Response(content_comment_serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 

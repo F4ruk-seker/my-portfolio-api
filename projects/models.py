@@ -14,7 +14,7 @@ class ContentModel(models.Model):
         TR = "2", "Türkçe"
 
     title = models.CharField(max_length=50)
-    slug = AutoSlugField(populate_from='title')
+    slug = AutoSlugField(populate_from='title', unique=True)
 
     show = models.BooleanField(default=True)
 
@@ -27,7 +27,7 @@ class ContentModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
 
-    tags = models.ManyToManyField('tags.TagModel')
+    tags = models.ManyToManyField('tags.TagModel', blank=True)
     content_type = models.ForeignKey('ContentTypeModel', on_delete=models.CASCADE)
     comments = models.ManyToManyField('ContentCommentModel', related_name='content', blank=True)
 
@@ -43,7 +43,7 @@ class ContentModel(models.Model):
         return self.seo_image_url
 
     def __str__(self):
-        return f"Content ({self.id}) | {self.title} | {self.content_type.name}"
+        return f"Content ({self.id}) | {self.title} | {self.content_type.name} @{self.slug if self.slug else 'NEW'}"
 
     class Meta:
         ordering: tuple = 'title',
