@@ -68,6 +68,10 @@ class ContentCommentModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
 
+    @property
+    def title(self):
+        return 'Comment'
+
     '''
     @staticmethod
     def generate_random_disable_tracking_token(length: int = 150):
