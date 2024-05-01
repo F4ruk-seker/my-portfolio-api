@@ -1,7 +1,6 @@
 from rest_framework.generics import CreateAPIView
 from message.models import MessageModel
 from message.api.serializers import MessageCreateSerializer
-from analytical.utils import ViewCountWithRule
 
 
 class CreateMessageView(CreateAPIView):

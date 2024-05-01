@@ -1,7 +1,9 @@
 from django.db import models
 from autoslug import AutoSlugField
-
+# import string
+# import random
 from django.contrib.auth import get_user_model
+
 
 User = get_user_model()
 
@@ -53,8 +55,28 @@ class ContentTypeModel(models.Model):
 
 
 class ContentCommentModel(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    # user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=40, default=None, null=True)
+    email = models.EmailField(max_length=40, default=None, null=True)
+    # view
+    sender_agent = models.ForeignKey('analytical.ViewModel', on_delete=models.CASCADE, default=None, null=True, blank=True, editable=True)
+    # tracking = models.BooleanField(default=False)
+    # disable_tracking_token = models.CharField(max_length=150, editable=False)
+
     comment = models.CharField(max_length=500)
 
     created = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
+
+    '''
+    @staticmethod
+    def generate_random_disable_tracking_token(length: int = 150):
+        pattern: str = string.ascii_letters + string.digits
+        return ''.join(random.choices(population=pattern, k=length))
+
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            self.disable_tracking_token = self.generate_random_disable_tracking_token()
+        super().save(*args, **kwargs)
+
+    '''

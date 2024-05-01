@@ -1,18 +1,16 @@
 from projects.models import ContentCommentModel
 from rest_framework import serializers
+from analytical.utils import ViewCountWithRule
 
 
 class ContentCommentSerializer(serializers.ModelSerializer):
-    user = serializers.SerializerMethodField(required=False)
-    comment = serializers.CharField(max_length=500)
-
-    @staticmethod
-    def get_user(obj):
-        if user := obj.user:
-            return user.username
-        return None
+    def create(self, validated_data):
+        if self.context:
+            counter = ViewCountWithRule(None, self.context['request'])
+            validated_data['sender_agent'] = counter.create_view()
+        return super().create(validated_data)
 
     class Meta:
         model = ContentCommentModel
-        fields: str = '__all__'
-
+        # fields: str = '__all__'
+        exclude: tuple = 'sender_agent',
