@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from .base import *
 
 
@@ -52,3 +54,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
+SIMPLE_JWT: dict = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
+}

@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from .base import *
 import socket
 
@@ -53,3 +55,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+SIMPLE_JWT: dict = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(seconds=2),
+}
