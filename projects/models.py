@@ -2,10 +2,17 @@ from django.db import models
 from autoslug import AutoSlugField
 # import string
 # import random
+from django.utils.text import slugify
 from django.contrib.auth import get_user_model
+from unidecode import unidecode
 
 
 User = get_user_model()
+
+
+class TurkishAutoSlugField(AutoSlugField):
+    def slugify_func(self, content):
+        return slugify(unidecode(content))
 
 
 class ContentModel(models.Model):
@@ -14,7 +21,12 @@ class ContentModel(models.Model):
         TR = "2", "Türkçe"
 
     title = models.CharField(max_length=50)
-    slug = AutoSlugField(populate_from='title', unique=True)
+    slug = TurkishAutoSlugField(populate_from='title',
+                                unique=True,
+                                editable=True,
+                                blank=True,
+                                always_update=True,
+                                )
 
     show = models.BooleanField(default=True)
 
