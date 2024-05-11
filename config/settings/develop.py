@@ -45,6 +45,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # LANGUAGE_CODE = 'tr'
 
 SIMPLE_JWT: dict = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=2),
-    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=10),
 }
