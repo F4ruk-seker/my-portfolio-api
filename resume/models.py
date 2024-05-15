@@ -14,6 +14,7 @@ class ResumeModel(models.Model):
     picture = models.URLField(default=None, null=True, blank=True)
     contact = models.OneToOneField(ContactModel, on_delete=models.CASCADE, default=None, blank=True, null=True)
     description = models.TextField(default='')
+    right_side = models.TextField(default='')
     # work_experiences = models.ManyToManyField('WorkExperiencesModel', blank=True, default=None)
 
 
@@ -47,3 +48,4 @@ class ProjectExperiencesModel(models.Model):
         choices=ProjectType.choices,
         default=ProjectType.OPEN_SOURCE
     )
+
