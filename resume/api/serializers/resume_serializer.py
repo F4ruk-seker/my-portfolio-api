@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from resume.models import ResumeModel
 from resume.models import WorkExperiencesModel as We
+from resume.models import ProjectExperiencesModel as Pe
 from .work_experiences_serializer import WorkExperiencesSerializer
+from .project_experiences_serializer import ProjectExperiencesSerializer
 from .contact_serializer import ContactSerializer
 
 
@@ -21,6 +23,12 @@ class ResumeEditSerializer(serializers.ModelSerializer):
 class ResumeAlpha(serializers.ModelSerializer):
     contact = ContactSerializer(required=False)
     work_experiences = serializers.SerializerMethodField()
+    project_experiences = serializers.SerializerMethodField()
+
+    def get_project_experiences(self, instance):
+        request = self.context.get('request')
+        pyload = Pe.objects.all() if request.user.is_authenticated else Pe.objects.filter(show=True)
+        return ProjectExperiencesSerializer(instance=pyload, many=True, required=False).data
 
     def get_work_experiences(self, instance):
         request = self.context.get('request')

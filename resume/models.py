@@ -30,3 +30,20 @@ class WorkExperiencesModel(models.Model):
     # class Meta:
     #     ordering: tuple = 'order',
 
+
+class ProjectExperiencesModel(models.Model):
+    class ProjectType(models.TextChoices):
+        HOBBY = "HB", "Hobby"
+        OPEN_SOURCE = "OS", "open source"
+        DEVELOPMENT = "DP", "Development"
+        CONTRIBUTION = "CB", 'Contribution'
+
+    title = models.CharField(max_length=30)
+    link = models.URLField(default=None, blank=True, null=True)
+    experience = models.TextField()
+    show = models.BooleanField(default=True)
+    project_type = models.CharField(
+        max_length=2,
+        choices=ProjectType.choices,
+        default=ProjectType.OPEN_SOURCE
+    )
