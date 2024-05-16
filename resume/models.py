@@ -33,6 +33,8 @@ class WorkExperiencesModel(models.Model):
 
 
 class ProjectExperiencesModel(models.Model):
+    row = models.IntegerField(default=0)
+
     class ProjectType(models.TextChoices):
         HOBBY = "HB", "Hobby"
         OPEN_SOURCE = "OS", "open source"
@@ -48,4 +50,21 @@ class ProjectExperiencesModel(models.Model):
         choices=ProjectType.choices,
         default=ProjectType.OPEN_SOURCE
     )
+
+    def save(self, *args, **kwargs):
+        try:
+            if not self.pk:
+                before_item = ProjectExperiencesModel.objects.latest('row')
+                before_item_row = before_item.row
+                self.row = before_item_row + 1
+            return super().save(*args, **kwargs)
+        finally:
+            del before_item
+            del before_item_row
+
+    def __str__(self):
+        return f'#{self.row:2} - {self.title}'
+
+    class Meta:
+        ordering: tuple = 'row',
 
