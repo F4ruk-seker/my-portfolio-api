@@ -6,6 +6,7 @@ class ToDoSerializer(ModelSerializer):
     class Meta:
         model = ToDoModel
         # fields: str = '__all__'
-        exclude: tuple = 'created',
+        # exclude: tuple = 'created', 'category'
+        exclude: tuple = 'category',
 
 

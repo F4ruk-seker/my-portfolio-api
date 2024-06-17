@@ -3,26 +3,23 @@ from django.db import models
 
 class ToDoModel(models.Model):
     task = models.CharField(max_length=50)
-    detail = models.CharField(max_length=250)
+    detail = models.TextField(max_length=500)
     is_to_do = models.BooleanField(default=False)
-
     created = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(auto_now=True)
-
     death_of_line = models.DateField(default=None, blank=True, null=True)
-
     category = models.ForeignKey('ToDoCategoryModel', related_name='todo_category', on_delete=models.CASCADE)
 
 
 class ToDoCategoryModel(models.Model):
     title = models.CharField(max_length=50)
-
+    description = models.TextField(max_length=250, default='')
     created = models.DateTimeField(auto_now_add=True)
     death_of_line = models.DateField(default=None, blank=True, null=True)
 
     @property
     def is_end(self):
-        return self.all_todos_count() == self.all_ended_todos_count()
+        return self.all_todos_count == self.all_ended_todos_count
 
     @property
     def all_todos(self):
