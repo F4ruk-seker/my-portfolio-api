@@ -1,16 +1,6 @@
 from django.db import models
 
 
-class ToDoModel(models.Model):
-    task = models.CharField(max_length=50)
-    detail = models.TextField(max_length=500)
-    is_to_do = models.BooleanField(default=False)
-    created = models.DateTimeField(auto_now_add=True)
-    end_date = models.DateTimeField(auto_now=True)
-    death_of_line = models.DateField(default=None, blank=True, null=True)
-    category = models.ForeignKey('ToDoCategoryModel', related_name='todo_category', on_delete=models.CASCADE)
-
-
 class ToDoCategoryModel(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(max_length=250, default='')
@@ -36,4 +26,14 @@ class ToDoCategoryModel(models.Model):
     @property
     def all_ended_todos_count(self):
         return ToDoModel.objects.filter(category=self, is_to_do=True).count()
+
+
+class ToDoModel(models.Model):
+    task = models.CharField(max_length=50)
+    detail = models.TextField(max_length=500, default=None, blank=True, null=True)
+    is_to_do = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateTimeField(auto_now=True)
+    death_of_line = models.DateField(default=None, blank=True, null=True)
+    category = models.ForeignKey('ToDoCategoryModel', related_name='todo_category', on_delete=models.CASCADE)
 

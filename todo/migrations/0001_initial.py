@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('end_date', models.DateTimeField(auto_now=True)),
                 ('death_of_line', models.DateField(blank=True, default=None, null=True)),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='todo_category', to='todo.todocategorymodel')),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='todo_category', to='todo.todocategorymodel', default=1)),
             ],
         ),
     ]

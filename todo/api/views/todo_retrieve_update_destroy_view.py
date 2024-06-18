@@ -5,7 +5,7 @@ from todo.models import ToDoModel
 
 
 class ToDoRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
-    queryset = ToDoModel
+    queryset = ToDoModel.objects.all()
     serializer_class = ToDoSerializer
     lookup_field: str = 'pk'
 

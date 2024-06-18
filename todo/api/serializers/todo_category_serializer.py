@@ -10,7 +10,7 @@ class ToDoCategorySerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_todos(instance):
-        return ToDoSerializer(instance.all_todos, many=True).data
+        return ToDoSerializer(instance.all_todos.order_by('-created').order_by('is_to_do'), many=True).data
 
     @staticmethod
     def get_is_done(instance):
