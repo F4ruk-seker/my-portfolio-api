@@ -5,4 +5,4 @@ from todo.api.serializers import ToDoCategorySerializer
 
 class ToDoCategoryRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     serializer_class = ToDoCategorySerializer
-    queryset = ToDoCategoryModel
+    queryset = ToDoCategoryModel.objects.all()
