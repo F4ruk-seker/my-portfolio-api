@@ -41,7 +41,7 @@ class ProjectExperiencesModel(models.Model):
         DEVELOPMENT = "DP", "Development"
         CONTRIBUTION = "CB", 'Contribution'
 
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=50)
     link = models.URLField(default=None, blank=True, null=True)
     experience = models.TextField()
     show = models.BooleanField(default=True)
