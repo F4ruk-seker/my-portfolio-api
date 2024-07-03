@@ -8,6 +8,7 @@ from rest_framework.exceptions import APIException
 
 class PageMonthDaysView(APIView):
     def get(self, *args, **kwargs):
+        result = ''
         try:
             # month
             page = get_object_or_404(PageModel, name=kwargs.get('name', None))
@@ -27,6 +28,7 @@ class PageMonthDaysView(APIView):
             for _ in range(1, 31):
                 for day in views_per_day_jan_2024:
                     if _ == day.get('day'):
+                        result = f'_={_} / (len(apx) * 7) = {(len(apx) * 7)}'
                         week[_ - (len(apx) * 7)] = day.get('count')
                         break
                 if _ % 7 == 0:
@@ -42,5 +44,7 @@ class PageMonthDaysView(APIView):
                 })
             return Response(apx)
         except Exception as exception:
-            raise APIException(str(exception))
+            raise APIException(
+                f'{result}\n' + str(exception)
+            )
 
