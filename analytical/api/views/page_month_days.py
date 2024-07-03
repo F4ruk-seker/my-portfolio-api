@@ -26,7 +26,7 @@ class PageMonthDaysView(APIView):
         for _ in range(1, 31):
             for day in views_per_day_jan_2024:
                 if _ == day.get('day'):
-                    week[_ - len(apx) * 7] = day.get('count')
+                    week[_ - (len(apx) * 7)] = day.get('count')
                     break
             if _ % 7 == 0:
                 apx.append({
