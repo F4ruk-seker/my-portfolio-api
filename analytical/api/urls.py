@@ -6,8 +6,20 @@ app_name = "analytical"
 urlpatterns = [
     path('ip/<ip>', views.UserFlow.as_view(), name='user_flow'),
     path('content/<pk>', views.ContentTimeTick.as_view(), name='content_time_tick'),
-    path('items', views.Items.as_view(), name='items')
-    # path('page/', include('pages.api.urls'), name='pages'),
+    path('items', views.Items.as_view(), name='items'),
+    path('matrix/<name>/years', views.PageYearlyView.as_view()),
+    path('matrix/<name>/<int:year>/<int:month>', views.PageMonthDaysView.as_view()),
+    path('matrix/<name>/<int:year>/months', views.PageYearMonthlyView.as_view())
 ]
 
 
+'''
+# matrix-page/years
+# matrix-page/<YYYY>
+# matrix-page/<YYYY>/month
+# matrix-page/<YYYY>/<mm>/
+# matrix-page/<YYYY>/<mm>/week/<w>
+# matrix-page/<YYYY>/<mm>/day/<dd>
+# matrix-page/range/start-date/end date
+# path('page/', include('pages.api.urls'), name='pages'),
+'''

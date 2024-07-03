@@ -3,26 +3,30 @@ from datetime import timedelta
 from .base import *
 import socket
 
-machine_name: str = socket.gethostname()
-machine_ip: str = socket.gethostbyname(machine_name)
+CORS_ALLOW_ALL_ORIGINS = True
+
+MACHINE_NAME: str = socket.gethostname()
+MACHINE_IP: str = socket.gethostbyname(MACHINE_NAME)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-jv&q^72-!del!fq-5=lv0w9#4md0%k6w8_n7ig!47@4zrsh8j8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [machine_ip,]
+ALLOWED_HOSTS = [MACHINE_IP, '*']
 
 # CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    f'http://{machine_ip}',
+    f'http://{MACHINE_IP}',
+    f'http://127.0.0.1',
 ]
 
 # DEBUG TOOLS
 INTERNAL_IPS = [
     # ...
-    machine_ip,
+    MACHINE_IP,
+    '127.0.0.1'
     # ...
 ]
 
@@ -58,5 +62,5 @@ AUTH_PASSWORD_VALIDATORS = [
 
 SIMPLE_JWT: dict = {
     "ACCESS_TOKEN_LIFETIME": timedelta(seconds=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(seconds=2),
+    "REFRESH_TOKEN_LIFETIME": timedelta(seconds=5),
 }

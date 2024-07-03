@@ -55,12 +55,10 @@ class ProjectExperiencesModel(models.Model):
         try:
             if not self.pk:
                 before_item = ProjectExperiencesModel.objects.latest('row')
-                before_item_row = before_item.row
-                self.row = before_item_row + 1
+                self.row = before_item.row + 1 if before_item else 0
             return super().save(*args, **kwargs)
         finally:
             del before_item
-            del before_item_row
 
     def __str__(self):
         return f'#{self.row:2} - {self.title}'
