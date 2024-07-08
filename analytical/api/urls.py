@@ -8,12 +8,16 @@ urlpatterns = [
     path('content/<pk>', views.ContentTimeTick.as_view(), name='content_time_tick'),
     path('items', views.Items.as_view(), name='items'),
     path('matrix/<name>/years', views.PageYearlyView.as_view()),
+    path('matrix/<name>/<int:year>/months', views.PageYearMonthlyView.as_view()),
     path('matrix/<name>/<int:year>/<int:month>', views.PageMonthDaysView.as_view()),
-    path('matrix/<name>/<int:year>/months', views.PageYearMonthlyView.as_view())
+    # path('matrix/<name>/<int:year>/<int:month>/week', views.PageMonthDaysListView.as_view()),
+    path('matrix/<name>/<int:year>/<int:month>/day', views.PageMonthDaysListView.as_view()),
+    path('matrix/<name>/<int:year>/<int:month>/<int:day>', views.PageMonthDayView.as_view()),
 ]
 
 
 '''
+
 # matrix-page/years
 # matrix-page/<YYYY>
 # matrix-page/<YYYY>/month
@@ -21,5 +25,6 @@ urlpatterns = [
 # matrix-page/<YYYY>/<mm>/week/<w>
 # matrix-page/<YYYY>/<mm>/day/<dd>
 # matrix-page/range/start-date/end date
-# path('page/', include('pages.api.urls'), name='pages'),
+# path('page/', include('pages.api.urls'), name='pages')
+
 '''
