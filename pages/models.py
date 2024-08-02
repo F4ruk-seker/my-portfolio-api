@@ -41,8 +41,11 @@ class PageModel(models.Model):
 
     view = models.ManyToManyField('analytical.ViewModel', blank=True, default=None, editable=True)
 
-    def get_view(self):
-        return self.view.all()
+    def get_view(self, count: int = 0):
+        if count > 0:
+            return self.view.all()[:count]
+        else:
+            return self.view.all()
 
 
 class ContextFieldModel(models.Model):
