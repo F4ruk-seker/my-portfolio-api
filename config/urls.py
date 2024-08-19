@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from config.settings.base import env
+from django.conf.urls.static import static
 
 # from rest_framework import routers
 
@@ -27,7 +28,7 @@ from config.settings.base import env
 urlpatterns = [
     # path('', include(router.urls)),
     path('api/', include('api.urls'))
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) if settings.DEBUG else []
 
 if settings.DEBUG:
     import debug_toolbar

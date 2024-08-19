@@ -1,4 +1,6 @@
 from django.db import models
+# from cloudinary.models import CloudinaryField
+
 import uuid
 
 
@@ -34,4 +36,12 @@ class Choice(models.Model):
 
 class Response(models.Model):
     question = models.ForeignKey(Question, related_name='responses', on_delete=models.CASCADE)
-    text = models.CharField(max_length=200)
+    choice = models.ForeignKey(Choice, blank=True, null=True, default=True, on_delete=models.CASCADE)
+    text = models.CharField(max_length=200, blank=True, null=True)
+
+
+class Platform(models.Model):
+    name = models.CharField(max_length=75)
+    url = models.URLField(default=None, blank=True, null=True)
+    color = models.CharField(max_length=20, help_text='hex, rgb, rgba')
+    icon = models.ImageField(upload_to='platform')

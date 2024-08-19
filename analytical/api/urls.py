@@ -8,6 +8,7 @@ urlpatterns = [
     path('content/<pk>', views.ContentTimeTick.as_view(), name='content_time_tick'),
     path('items', views.Items.as_view(), name='items'),
     path('page/<slug:slug>/<int:count>', views.PageAnalyticalView.as_view()),
+    path('visitors/<slug:name>/', views.PageVisitorsListView.as_view()),
     path('matrix/<name>/years', views.PageYearlyView.as_view()),
     path('matrix/<name>/<int:year>/months', views.PageYearMonthlyView.as_view()),
     path('matrix/<name>/<int:year>/<int:month>', views.PageMonthDaysView.as_view()),
