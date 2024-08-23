@@ -8,6 +8,7 @@ class ResumeView(RetrieveAPIView):
     lookup_field = None
     serializer_class = ResumeAlpha
     authentication_classes = []
+    permission_classes = []
 
     def get_object(self):
         return get_object_or_404(ResumeModel, pk=1)
