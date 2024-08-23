@@ -8,17 +8,17 @@ from django.shortcuts import get_object_or_404
 
 
 class VisitorsResultsPageNumberPagination(PageNumberPagination):
-    page_size = 20
-    page_size_query_param = 'results_size'
-    max_page_size = 100
+    max_page_size: int = 100
+    page_size: int = 20
+    page_size_query_param: str = 'results_size'
 
 
 class PageVisitorsListView(ListAPIView):
-    lookup_field = 'name'
-    serializer_class = ViewSerializer
+    lookup_field: str = 'name'
     filter_backends: list = SearchFilter, OrderingFilter
-    search_fields: list = 'user_agent', 'ip_address', 'user_agent'
+    search_fields: list = 'user_agent', 'ip_address', 'ip_data'
     ordering_fields: list = 'visit_time', 'reload_count_in_a_clock'
+    serializer_class = ViewSerializer
     pagination_class = VisitorsResultsPageNumberPagination
 
     def get(self, request, *args, **kwargs):
