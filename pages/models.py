@@ -94,4 +94,3 @@ class NavbarItemModel(models.Model):
 
     def __str__(self):
         return f'nav {self.text}'
-
