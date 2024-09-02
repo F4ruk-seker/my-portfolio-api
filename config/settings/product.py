@@ -16,6 +16,32 @@ DEBUG = False
 
 ALLOWED_HOSTS = [env('PRODUCT_HOST'), env('PRODUCT_API_HOST'), env('FEATURE_PRODUCT_HOST')]
 
+for _ in ALLOWED_HOSTS:
+    CUSTOM_LOGGER.construct(
+        title="HOSTs",
+        description="info",
+        level="info",
+        metadata={
+            "Metrics": {
+                "host": _,
+            },
+        },
+    )
+
+for _ in CSRF_TRUSTED_ORIGINS:
+    CUSTOM_LOGGER.construct(
+        title="CSRF HOSTs",
+        description="info",
+        level="info",
+        metadata={
+            "Metrics": {
+                "host": _,
+            },
+        },
+    )
+
+CUSTOM_LOGGER.send()
+
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 

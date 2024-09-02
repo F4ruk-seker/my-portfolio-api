@@ -6,7 +6,6 @@ from django.db.models import Q
 
 
 class AllProjectsListView(ListCreateAPIView):
-    authentication_classes = []
     serializer_class = ContentListSerializer
     filter_backends: list = [SearchFilter, OrderingFilter]
     search_fields: tuple = 'title', 'content_type__name', 'tags__id'
