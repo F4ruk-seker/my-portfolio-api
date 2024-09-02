@@ -26,3 +26,5 @@ def get_ip_data(ip='') -> dict:
         print(err)
     finally:
         return result
+
+
