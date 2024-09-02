@@ -27,6 +27,8 @@ for _ in ALLOWED_HOSTS:
             },
         },
     )
+    CUSTOM_LOGGER.send()
+
 
 for _ in CSRF_TRUSTED_ORIGINS:
     CUSTOM_LOGGER.construct(
@@ -39,8 +41,8 @@ for _ in CSRF_TRUSTED_ORIGINS:
             },
         },
     )
+    CUSTOM_LOGGER.send()
 
-CUSTOM_LOGGER.send()
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
