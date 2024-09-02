@@ -20,10 +20,6 @@ from django.conf import settings
 from config.settings.base import env
 from django.conf.urls.static import static
 
-# from rest_framework import routers
-
-# router = routers.DefaultRouter()
-# router.register(r'pages', PageView, basename='task')
 
 urlpatterns = [
     # path('', include(router.urls)),
@@ -39,3 +35,11 @@ if settings.DEBUG:
     urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 else:
     urlpatterns.append(path(f'{env("ADMIN_PATH")}/', admin.site.urls))
+
+'''
+# from rest_framework import routers
+
+# router = routers.DefaultRouter()
+# router.register(r'pages', PageView, basename='task')
+
+'''
