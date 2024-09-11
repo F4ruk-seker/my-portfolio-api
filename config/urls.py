@@ -22,7 +22,6 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    # path('', include(router.urls)),
     path('api/', include('api.urls'))
 ]
 
@@ -38,6 +37,7 @@ else:
 
 '''
 # from rest_framework import routers
+    # path('', include(router.urls)),
 
 # router = routers.DefaultRouter()
 # router.register(r'pages', PageView, basename='task')

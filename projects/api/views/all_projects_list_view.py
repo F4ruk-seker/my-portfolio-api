@@ -9,8 +9,8 @@ class AllProjectsListView(ListCreateAPIView):
     serializer_class = ContentListSerializer
     filter_backends: list = [SearchFilter, OrderingFilter]
     search_fields: tuple = 'title', 'content_type__name', 'tags__id'
-
     lookup_field = 'content_type'
+    authentication_classes = []
 
     def get_queryset(self, *args, **kwargs):
 

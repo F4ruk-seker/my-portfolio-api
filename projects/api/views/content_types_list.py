@@ -6,3 +6,4 @@ from projects.api.serializers import ContentTypeSerializer
 class ContentsView(ListCreateAPIView):
     queryset = ContentTypeModel.objects.all()
     serializer_class = ContentTypeSerializer
+    authentication_classes = []
