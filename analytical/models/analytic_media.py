@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 
 
 class AnalyticMedia(models.Model):
@@ -8,3 +9,6 @@ class AnalyticMedia(models.Model):
     platform_host = models.CharField(max_length=150)
     platform_path = models.TextField(default='')
     media_source = models.TextField(default='')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
