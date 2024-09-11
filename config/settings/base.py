@@ -109,7 +109,7 @@ USE_TZ = False
 
 STATIC_URL = 'static/'
 
-MEDIA_URL = 'media/'
+MEDIA_URL = 'local-media/'
 MEDIA_ROOT = BASE_DIR / 'uploads'
 
 # Default primary key field type

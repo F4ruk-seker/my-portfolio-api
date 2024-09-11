@@ -20,9 +20,12 @@ from django.conf import settings
 from config.settings.base import env
 from django.conf.urls.static import static
 
+from analytical.views import AnalyticalMediaRedirectView
+
 
 urlpatterns = [
-    path('api/', include('api.urls'))
+    path('api/', include('api.urls')),
+    path('media/<slug>',  AnalyticalMediaRedirectView.as_view())
 ]
 
 if settings.DEBUG:
