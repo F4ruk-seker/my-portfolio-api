@@ -14,7 +14,7 @@ class AuthTest(TestCase):
             password='ratatatata01!',
             email='f4@f4.com'
         )
-
+        # self.bad_user
         self.admin_user = User.objects.create_superuser(
             username='admin',
             password='adminadmin!01!',
@@ -29,12 +29,10 @@ class AuthTest(TestCase):
     def test_jwt_refresh(self):
         self.client.login(username='admin', password='adminadmin!01!')
         test_url = f'{test.MACHINE_IP}{reverse('api:custom_admin:page-manage')}'
-        login_url_token = f'http://localhost:8000{reverse('api:auth:token_obtain_pair')}'
+        login_url_token = resolve_url(reverse('api:auth:token_obtain_pair'))
         p = api.post(login_url_token, {
             'username': 'echo', 'password': 'ratatatata01!'
         })
-        print(p)
-        print(p.json())
         response = self.client.get(reverse('api:custom_admin:page-manage'))
         self.assertEqual(response.status_code, 200)
         time.sleep(2)
