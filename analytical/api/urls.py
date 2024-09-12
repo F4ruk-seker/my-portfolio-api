@@ -19,8 +19,8 @@ urlpatterns = [
     path('matrix/<name>/<int:year>/<int:month>/<int:day>', views.PageMonthDayView.as_view()),
 ]+[
     # media
-    path('analytical-media/', views.AnalyticalMediaListCreateView.as_view()),
-    path('analytical-media/<pk>', views.AnalyticalMediaRetrieveDestroyView.as_view()),
+    path('analytical-media', views.AnalyticalMediaListCreateView.as_view()),
+    path('analytical-media/<pk>', views.AnalyticalMediaRetrieveUpdateDestroyView.as_view()),
     # analytical_media/<id>
 ]
 

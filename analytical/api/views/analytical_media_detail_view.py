@@ -1,10 +1,9 @@
-from rest_framework.generics import RetrieveAPIView
-from rest_framework.mixins import DestroyModelMixin
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from analytical.api.serializers import AnalyticalMediaSerializer
 from analytical.models import AnalyticMedia
 
 
-class AnalyticalMediaRetrieveDestroyView(RetrieveAPIView, DestroyModelMixin):
+class AnalyticalMediaRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     serializer_class = AnalyticalMediaSerializer
     queryset = AnalyticMedia.objects.all()
     lookup_field = 'pk'
