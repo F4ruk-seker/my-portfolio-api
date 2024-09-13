@@ -1,47 +1,53 @@
 import subprocess
-import difflib
+import configparser
+import os
 
 
+# git-config.ini dosyasını oku
+def get_config():
+    config = configparser.ConfigParser()
+    config.read('git-config.ini')
+    return config['settings']['auto_update'].lower() == 'true'
+
+
+# Yüklü paketleri pip freeze ile al
 def get_installed_packages():
-    """Kurulu Python paketlerini listele"""
-    return subprocess.check_output([f"pip freeze"]).decode("utf-8").splitlines()
-
-
-def get_requirements_txt():
-    """requirements.txt içeriğini oku"""
-    with open('requirements.txt', 'r') as f:
-        return f.read().splitlines()
-
-
-def update_requirements_txt(new_packages):
-    """requirements.txt dosyasını güncelle"""
-    with open('requirements.txt', 'w') as f:
-        f.write("\n".join(new_packages))
-    print("requirements.txt dosyası güncellendi.")
+    return subprocess.check_output(["pip", "freeze"]).decode("utf-8").splitlines()
 
 
 def main():
+    # git-config.ini dosyasındaki auto_update ayarını al
+    auto_update = get_config()
+
+    # Yüklü paketleri al
     installed_packages = get_installed_packages()
-    requirements_txt = get_requirements_txt()
 
-    diff = list(difflib.unified_diff(requirements_txt, installed_packages, lineterm=""))
+    # requirements.txt dosyasını oku
+    if not os.path.exists('requirements.txt'):
+        with open('requirements.txt', 'w') as f:
+            pass
 
-    if diff:
-        print("\nYüklü paketlerle 'requirements.txt' dosyası arasında farklar var:")
-        print("\n".join(diff))
+    with open('requirements.txt', 'r') as f:
+        required_packages = f.read().splitlines()
 
-        confirm = input("requirements.txt dosyasını güncellemek ister misiniz? (Evet/Hayır): ").strip().lower()
+    # Yüklü paketlerle requirements.txt'deki paketleri karşılaştır
+    missing_packages = [pkg for pkg in installed_packages if pkg not in required_packages]
 
-        if confirm in ['evet', 'e']:
-            update_requirements_txt(installed_packages)
-            subprocess.run(['git', 'add', 'requirements.txt'])
-            subprocess.run(['git', 'commit', '-m', 'Güncellenmiş requirements.txt dosyası'])
+    if missing_packages:
+        print(f"Yeni kütüphaneler bulundu: {missing_packages}")
+
+        # Eğer auto_update True ise, requirements.txt dosyasını otomatik güncelle
+        if auto_update:
+            with open('requirements.txt', 'a') as f:
+                for pkg in missing_packages:
+                    f.write(pkg + '\n')
+            print("requirements.txt otomatik olarak güncellendi.")
         else:
-            print("Güncelleme iptal edildi.")
-            exit(1)
+            # Eğer auto_update False ise, kullanıcıya güncellemesi için mesaj göster
+            print("requirements.txt dosyasını güncellemek için 'pip freeze > requirements.txt' komutunu çalıştırabilirsiniz.")
     else:
-        print("requirements.txt güncel.")
+        print("requirements.txt zaten güncel.")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
