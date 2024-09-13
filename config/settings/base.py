@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'todo',
     'game',
     'resume',
-    'survey'
+    # 'survey'
 ]+[
     'rest_framework',
     # 'rest_framework.authtoken',
