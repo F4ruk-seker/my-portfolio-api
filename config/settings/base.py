@@ -29,6 +29,16 @@ environ.Env.read_env(BASE_DIR.joinpath('.env'))
 # Application definition
 
 INSTALLED_APPS = [
+    # unfold
+    'unfold',
+    'unfold.contrib.filters',
+    'unfold.contrib.forms',
+    'unfold.contrib.inlines',
+    'unfold.contrib.import_export',
+    'unfold.contrib.guardian',
+    'unfold.contrib.simple_history',
+]+[
+    # django admin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,14 +57,19 @@ INSTALLED_APPS = [
     'todo',
     'game',
     'resume',
-    'survey'
+    # 'survey'
 ]+[
+    # 3rd apps
     'rest_framework',
-    # 'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'corsheaders',
+    'import_export',
+
+    # 'rest_framework.authtoken',
     # 'knox'
 ]
+
+# INSTALLED_APPS.insert(0, 'unfold')  # 3rd
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -108,6 +123,8 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
 MEDIA_URL = 'local-media/'
 MEDIA_ROOT = BASE_DIR / 'uploads'
