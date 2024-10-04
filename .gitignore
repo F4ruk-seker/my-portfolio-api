@@ -328,3 +328,5 @@ code_test/*
 smart_git
 smart_git/
 smart_git/*
+
+*.prof
