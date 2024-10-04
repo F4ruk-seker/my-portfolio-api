@@ -3,6 +3,7 @@ from game.models import GameVideoModel
 from game.api.serializers.music_info_serializer import MusicInfoSerializer
 from game.api.serializers.game_info_serializer import GameInfoSerializer
 from media_manager.api.serializers import MediaSerializer
+from projects.api.serializers import ContentCommentSerializer
 
 
 class GameVideoSerializer(serializers.ModelSerializer):
@@ -11,6 +12,7 @@ class GameVideoSerializer(serializers.ModelSerializer):
     view = serializers.SerializerMethodField()
     music = MusicInfoSerializer()
     game = GameInfoSerializer()
+    comments = ContentCommentSerializer()
 
     @staticmethod
     def get_view(obj):
