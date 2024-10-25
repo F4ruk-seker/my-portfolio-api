@@ -24,5 +24,5 @@ class PageVisitorsListView(ListAPIView):
     def get(self, request, *args, **kwargs):
         page_model: PageModel = get_object_or_404(PageModel, **{self.lookup_field: kwargs.get(self.lookup_field)})
         views = page_model.get_view()
-        self.queryset = views.order_by('visit_time')
+        self.queryset = views.order_by('-visit_time')
         return super().get(request, *args, **kwargs)
