@@ -8,17 +8,17 @@ class MessageCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = MessageModel
         fields: tuple = 'name', 'email', 'message'
-        extra_kwargs = {'sender_agent': {'write_only': True}}
+        extra_kwargs = {'view': {'write_only': True}}
 
     def create(self, validated_data):
         counter = ViewCountWithRule(None, self.context['request'])
-        validated_data['sender_agent'] = counter.create_view()
+        validated_data['view'] = counter.create_view()
         message = super(MessageCreateSerializer, self).create(validated_data)
         return message
 
 
 class MessageReaderSerializer(serializers.ModelSerializer):
-    sender_agent = ViewSerializer()
+    view = ViewSerializer()
 
     class Meta:
         model = MessageModel

@@ -12,7 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class UserFlow(APIView):
-    # permission_classes: list = [IsAuthenticated,]
+    permission_classes: list = [IsAuthenticated,]
     models_with_view_reference: list = PageModel, ContentModel, GameVideoModel, ContentCommentModel, MessageModel
 
     def get(self, request, *args, **kwargs):
