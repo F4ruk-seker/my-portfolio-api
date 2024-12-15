@@ -5,14 +5,15 @@ from rest_framework.views import APIView
 from analytical.models import ViewModel
 from pages.models import PageModel
 from projects.models import ContentModel, ContentCommentModel
+from message.models import MessageModel
 from game.models import GameVideoModel
 from analytical.api.serializers import ViewSerializer
 from rest_framework.permissions import IsAuthenticated
 
 
 class UserFlow(APIView):
-    permission_classes: list = [IsAuthenticated,]
-    models_with_view_reference: list = PageModel, ContentModel, GameVideoModel, ContentCommentModel
+    # permission_classes: list = [IsAuthenticated,]
+    models_with_view_reference: list = PageModel, ContentModel, GameVideoModel, ContentCommentModel, MessageModel
 
     def get(self, request, *args, **kwargs):
         time_ranges: dict = {
@@ -41,5 +42,9 @@ class UserFlow(APIView):
                     'type': str(view),
                     'title': view.title,
                 }
+        return {
+            'type': 'unknown',
+            'title': 'unknown action',
+        }
 
 

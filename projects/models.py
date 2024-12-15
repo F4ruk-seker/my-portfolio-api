@@ -71,7 +71,7 @@ class ContentCommentModel(models.Model):
     name = models.CharField(max_length=40, default=None, null=True)
     email = models.EmailField(max_length=40, default=None, null=True)
     # view
-    sender_agent = models.ForeignKey('analytical.ViewModel', on_delete=models.CASCADE, default=None, null=True, blank=True, editable=True)
+    view = models.ForeignKey('analytical.ViewModel', on_delete=models.CASCADE, default=None, null=True, blank=True, editable=True)
     # tracking = models.BooleanField(default=False)
     # disable_tracking_token = models.CharField(max_length=150, editable=False)
 
