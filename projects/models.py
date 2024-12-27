@@ -63,7 +63,8 @@ class ContentModel(models.Model):
 
 class ContentTypeModel(models.Model):
     name = models.CharField(max_length=30, primary_key=True)
-    sub_tags = models.ManyToManyField('tags.TagCategoryModel', blank=True)
+    sub_tags = models.ManyToManyField('tags.TagCategoryModel', blank=True, related_name='content_types')
+    # sub_tags = models.ManyToManyField('tags.TagModel', related_name='content_types')
 
 
 class ContentCommentModel(models.Model):
