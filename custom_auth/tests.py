@@ -1,6 +1,5 @@
 import time
 from django.test import TestCase
-from django.test import TestCase
 from django.shortcuts import reverse, resolve_url
 from django.contrib.auth.models import User
 from config.settings import test
