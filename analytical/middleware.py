@@ -12,14 +12,13 @@ class AnalyticalMiddleware:
         response = self.get_response(request)
         if not request.get_full_path().startswith('/api/'):
             self.save_a_normal_request(request)
-            print('CREATED')
         return response
 
     @staticmethod
     def save_a_normal_request(request: WSGIRequest):
         ...
         page, is_created = PageModel.objects.get_or_create(
-            name='A-Normal', title='A Normal'
+            name='A-Normal', title='A Normal', image='cassandra'
         )
         ViewCountWithRule(
             page=page,
