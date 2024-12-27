@@ -17,11 +17,12 @@ class AnalyticalMiddleware:
 
     @staticmethod
     def save_a_normal_request(request: WSGIRequest):
-        page, is_created = PageModel.objects.get_or_create(
-            name='A-Normal', title='A Normal'
-        )
-        ViewCountWithRule(
-            page=page,
-            request=request,
-            hourly_cooldown=request.user.is_superuser
-        )()
+        ...
+        # page, is_created = PageModel.objects.get_or_create(
+        #     name='A-Normal', title='A Normal'
+        # )
+        # ViewCountWithRule(
+        #     page=page,
+        #     request=request,
+        #     hourly_cooldown=request.user.is_superuser
+        # )()
