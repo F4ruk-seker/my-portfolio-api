@@ -19,11 +19,11 @@ class PageModel(models.Model):
         'format': "webp",
     }
     # image = models.ImageField(default=None, blank=True, null=True) if settings.DEBUG else CloudinaryField("image", **cloudinary_settings)
-    image = models.TextField(default=None, blank=True)
+    image = models.TextField(default=None, blank=True, null=True)
     image_alt = models.TextField(blank=True, null=True)
     disable_ceo = models.BooleanField(default=False)
 
-    context = models.ManyToManyField('pages.ContextFieldModel')
+    context = models.ManyToManyField('pages.ContextFieldModel', blank=True)
 
     class Meta:
         ordering: tuple = 'title',

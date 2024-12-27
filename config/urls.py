@@ -24,7 +24,7 @@ from analytical.views import AnalyticalMediaRedirectView
 
 
 urlpatterns = [
-    path('api/', include('api.urls')),
+    path('api/', include('api.urls'), name='api'),
     path('media/<slug>',  AnalyticalMediaRedirectView.as_view())
 ]
 

@@ -79,7 +79,7 @@ class ViewCountWithRule:
                 query_string=self.request.META.get('QUERY_STRING', None),
                 request_type=self.request.META.get('REQUEST_METHOD', None),
                 http_sec_ch_ua=self.request.META.get('HTTP_SEC_CH_UA', None),
-                request_data=self.request.data
+                request_data=self.request.data if hasattr(self.request, 'data') else None
             )
 
     def __call__(self, *args, **kwargs):

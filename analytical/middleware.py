@@ -1,5 +1,6 @@
-from django.shortcuts import reverse
-from django.shortcuts import redirect
+from django.core.handlers.wsgi import WSGIRequest
+from analytical.utils import ViewCountWithRule
+from pages.models import PageModel
 
 
 class AnalyticalMiddleware:
@@ -7,15 +8,20 @@ class AnalyticalMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
-    def __call__(self, request):
-        path = reverse('admin:index')
-
+    def __call__(self, request: WSGIRequest):
         response = self.get_response(request)
-        print(request)
-        print(self)
+        if not request.get_full_path().startswith('/api/'):
+            self.save_a_normal_request(request)
+            print('CREATED')
         return response
 
-    def request_is_analyzable(self):
-        # /api/page/
-        ...
-
+    @staticmethod
+    def save_a_normal_request(request: WSGIRequest):
+        page, is_created = PageModel.objects.get_or_create(
+            name='A-Normal', title='A Normal'
+        )
+        ViewCountWithRule(
+            page=page,
+            request=request,
+            hourly_cooldown=request.user.is_superuser
+        )()
