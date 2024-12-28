@@ -14,7 +14,7 @@ CSRF_TRUSTED_ORIGINS = [
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [env('PRODUCT_HOST'), env('PRODUCT_API_HOST'), env('FEATURE_PRODUCT_HOST')]
+ALLOWED_HOSTS = [env('PRODUCT_HOST'), env('PRODUCT_API_HOST'), env('FEATURE_PRODUCT_HOST'), '*']
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -113,8 +113,6 @@ sentry_sdk.init(
 )
 
 
-INSTALLED_APPS.append('debug_toolbar')
-MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
 
 from ipaddress import ip_network
@@ -137,4 +135,4 @@ CLOUDFLARE_IP_RANGES = [
 ]
 
 INTERNAL_IPS = [str(ip) for cidr in CLOUDFLARE_IP_RANGES for ip in ip_network(cidr).hosts()]
-INTERNAL_IPS += ["162.158.18.181"]  # lyoko
+INTERNAL_IPS += ["162.158.18.181", '127.0.0.1']  # lyoko

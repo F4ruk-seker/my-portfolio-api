@@ -28,6 +28,10 @@ environ.Env.read_env(BASE_DIR.joinpath('.env'))
 
 # Application definition
 
+
+# INSTALLED_APPS.append('debug_toolbar')
+# MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+
 INSTALLED_APPS = [
     # unfold
     'unfold',
@@ -64,7 +68,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'import_export',
-
+    'debug_toolbar'
     # 'rest_framework.authtoken',
     # 'knox'
 ]
@@ -72,6 +76,7 @@ INSTALLED_APPS = [
 # INSTALLED_APPS.insert(0, 'unfold')  # 3rd
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
