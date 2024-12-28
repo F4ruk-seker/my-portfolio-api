@@ -111,3 +111,12 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
+
+INTERNAL_IPS = [
+    "farukseker.com.tr",
+    "api.farukseker.com.tr",
+]
+INSTALLED_APPS.append('debug_toolbar')
+MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+
+
