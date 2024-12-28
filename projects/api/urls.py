@@ -9,6 +9,7 @@ urlpatterns = [
     path('all/', AllProjectsListView.as_view(), name='all_projects'),
     # custom port's
     path('all/blog', CustomBlogContentView.as_view(), name='custom_blog'),
+    # path('all/blog', CustomBlogContentView.as_view(), name='custom_blog'),
     # custom port's END
     path('create/', ContentCreateView.as_view(), name='project'),
     path('edit/', AdminAllProjectsListView.as_view(), name='admin-projects'),

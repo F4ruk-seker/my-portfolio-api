@@ -1,7 +1,6 @@
 from rest_framework.generics import ListAPIView
 from projects.api.serializers import CustomBLogContentSerializer
 from projects.models import ContentModel
-from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 

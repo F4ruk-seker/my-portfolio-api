@@ -8,9 +8,11 @@ from analytical.utils import get_client_ip
 
 class ContentTimeTick(APIView):
     lookup_field = 'pk'
-    permission_classes = [
-        IsAuthenticated, IsAdminUser
-    ]
+    # permission_classes = [
+    #     IsAuthenticated, IsAdminUser
+    # ]
+    permission_classes = []
+    authentication_classes = []
 
     def post(self, *args, **kwargs):
         request_ip = get_client_ip(self.request)
