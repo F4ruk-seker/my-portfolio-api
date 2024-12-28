@@ -12,7 +12,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [env('PRODUCT_HOST'), env('PRODUCT_API_HOST'), env('FEATURE_PRODUCT_HOST')]
 
@@ -111,17 +111,3 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
-
-
-class AllIPS(list):
-    def __contains__(self, item):
-        return True
-
-
-INTERNAL_IPS = AllIPS()
-
-def show_toolbar(request):
-    return True
-DEBUG_TOOLBAR_CONFIG = {
-    "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
-}
