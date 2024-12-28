@@ -137,3 +137,4 @@ CLOUDFLARE_IP_RANGES = [
 ]
 
 INTERNAL_IPS = [str(ip) for cidr in CLOUDFLARE_IP_RANGES for ip in ip_network(cidr).hosts()]
+INTERNAL_IPS += ["162.158.18.181"]  # lyoko
