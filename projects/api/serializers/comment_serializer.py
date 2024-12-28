@@ -13,4 +13,4 @@ class ContentCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContentCommentModel
         # fields: str = '__all__'
-        exclude: tuple = 'view',
+        exclude: tuple = 'view', 'email'
