@@ -18,7 +18,8 @@ class AnalyticalMiddleware:
     def save_a_normal_request(request: WSGIRequest):
         ...
         page, is_created = PageModel.objects.get_or_create(
-            name='A-Normal', title='A Normal', image='cassandra'
+            name='A-Normal',
+            defaults={'title': 'A Normal', 'image': 'cassandra'}
         )
         ViewCountWithRule(
             page=page,

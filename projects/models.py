@@ -44,7 +44,7 @@ class ContentModel(models.Model):
     comments = models.ManyToManyField('ContentCommentModel', related_name='content', blank=True)
 
     view = models.ManyToManyField('analytical.ViewModel', blank=True, default=None, editable=True)
-
+    is_featured = models.BooleanField(default=False)
     language_type = models.CharField(max_length=1, choices=LanguageType, default=LanguageType.ENG)
 
     def get_view(self):
