@@ -1,3 +1,4 @@
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from analytical.api.serializers import PageYearlySerializer
@@ -10,6 +11,9 @@ from django.db.models.functions import ExtractYear
 class PageYearlyView(APIView):
     serializer_class = PageYearlySerializer
     lookup_field = 'name'
+    permission_classes = [
+        IsAuthenticated, IsAdminUser
+    ]
 
     def get_queryset(self):
         page = get_object_or_404(PageModel, name=self.kwargs.get('name', None))

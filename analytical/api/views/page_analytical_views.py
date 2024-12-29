@@ -4,11 +4,15 @@ from rest_framework import status
 from analytical.api.serializers import ViewSerializer
 from pages.models import PageModel
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 
 class PageAnalyticalView(APIView):
     lookup_field = 'slug'
     serializer_class = ViewSerializer
+    permission_classes = [
+        IsAuthenticated, IsAdminUser
+    ]
 
     def get(self, *args, **kwargs):
         if (slug := kwargs.get(self.lookup_field)) and (count := kwargs.get('count')):

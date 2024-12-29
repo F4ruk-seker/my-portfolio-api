@@ -4,9 +4,14 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from pages.models import PageModel
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 
 class PageMonthDaysListView(APIView):
+    permission_classes = [
+        IsAuthenticated, IsAdminUser
+    ]
+
     def get(self, request, *args, **kwargs):
         page = get_object_or_404(PageModel, name=kwargs.get('name', None))
         views_per_day_jan_2024 = (

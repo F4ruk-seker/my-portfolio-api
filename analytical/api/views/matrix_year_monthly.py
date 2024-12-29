@@ -1,3 +1,4 @@
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from analytical.api.serializers import PageYearlySerializer
@@ -8,6 +9,9 @@ from django.db.models.functions import ExtractMonth, ExtractDay
 
 
 class PageYearMonthlyView(APIView):
+    permission_classes = [
+        IsAuthenticated, IsAdminUser
+    ]
 
     def get(self, *args, **kwargs):
         page = get_object_or_404(PageModel, name=kwargs.get('name', None))

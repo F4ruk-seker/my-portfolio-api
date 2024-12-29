@@ -8,11 +8,11 @@ from projects.models import ContentModel, ContentCommentModel
 from message.models import MessageModel
 from game.models import GameVideoModel
 from analytical.api.serializers import ViewSerializer
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 
 class UserFlow(APIView):
-    permission_classes: list = [IsAuthenticated,]
+    permission_classes: list = [IsAuthenticated, IsAdminUser]
     models_with_view_reference: list = PageModel, ContentModel, GameVideoModel, ContentCommentModel, MessageModel
 
     def get(self, request, *args, **kwargs):

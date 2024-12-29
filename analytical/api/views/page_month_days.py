@@ -1,12 +1,16 @@
 from django.db.models import Count
 from django.db.models.functions import ExtractDay
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from pages.models import PageModel
 
 
 class PageMonthDaysView(APIView):
+    permission_classes = [
+        IsAuthenticated, IsAdminUser
+    ]
     def get(self, *args, **kwargs):
         # month
         page = get_object_or_404(PageModel, name=kwargs.get('name', None))

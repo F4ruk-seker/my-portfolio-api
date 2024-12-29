@@ -1,7 +1,7 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.pagination import PageNumberPagination
-
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from analytical.api.serializers import ViewSerializer
 from pages.models import PageModel
 from django.shortcuts import get_object_or_404
@@ -20,6 +20,9 @@ class PageVisitorsListView(ListAPIView):
     ordering_fields: list = 'visit_time', 'reload_count_in_a_clock'
     serializer_class = ViewSerializer
     pagination_class = VisitorsResultsPageNumberPagination
+    permission_classes = [
+        IsAuthenticated, IsAdminUser
+    ]
 
     def get(self, request, *args, **kwargs):
         page_model: PageModel = get_object_or_404(PageModel, **{self.lookup_field: kwargs.get(self.lookup_field)})
