@@ -8,5 +8,6 @@ class PageListView(ListCreateAPIView):
     serializer_class = PageListSerializer
     queryset = PageModel.objects.all()
     permission_classes = [
-        IsAuthenticated, IsAdminUser
+        IsAuthenticated,
+        IsAdminUser
     ]
