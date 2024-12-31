@@ -31,8 +31,8 @@ class UserFlow(APIView):
             visit_time__gte=one_hour_ago,
         ).order_by('visit_time' if order == 'ascend' else '-visit_time')
         view_data = ViewSerializer(views, many=True).data
-        view_data['ip_address'] = EncryptionService().decrypt_data(user_ip)
         for view in view_data:
+            view['ip_address'] = EncryptionService().decrypt_data(user_ip)
             view['action'] = self.get_view_type(view.get('id'))
         return Response(view_data)
 
