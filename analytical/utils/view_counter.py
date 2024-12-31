@@ -69,6 +69,9 @@ class ViewCountWithRule:
         view.save()
         return view
 
+    def get_cleaned_data(self) -> dict | None:
+        return self.request.data if hasattr(self.request, 'data') else None
+
     def create_view(self):
         return ViewModel.objects.create(
                 visit_time=timezone.now(),
@@ -79,7 +82,7 @@ class ViewCountWithRule:
                 query_string=self.request.META.get('QUERY_STRING', None),
                 request_type=self.request.META.get('REQUEST_METHOD', None),
                 http_sec_ch_ua=self.request.META.get('HTTP_SEC_CH_UA', None),
-                request_data=self.request.data if hasattr(self.request, 'data') else None
+                request_data=self.get_cleaned_data()
             )
 
     def __call__(self, *args, **kwargs):

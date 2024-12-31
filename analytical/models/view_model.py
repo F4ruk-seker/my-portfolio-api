@@ -1,5 +1,6 @@
 from django.db import models
 from config.settings.base import env
+from config.custom_fields import EncryptedField
 from typing import NoReturn
 
 
@@ -10,7 +11,7 @@ def default_ip_data():
 class ViewModel(models.Model):
     visit_time = models.DateTimeField(auto_now_add=True)
     reload_count_in_a_clock = models.IntegerField(default=1)
-    ip_address = models.TextField()
+    ip_address = EncryptedField()
     # ip_query_id = models.TextField(null=True, blank=True, default=None)
     ip_data = models.JSONField(null=True, default=default_ip_data, blank=True)
     is_i_am = models.BooleanField(default=False)

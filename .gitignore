@@ -330,3 +330,7 @@ smart_git/
 smart_git/*
 
 *.prof
+
+data_backups
+data_backups/
+/data_backups/

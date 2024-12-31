@@ -21,7 +21,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # env
 env = environ.Env()
 environ.Env.read_env(BASE_DIR.joinpath('.env'))
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -61,6 +60,7 @@ INSTALLED_APPS = [
     'todo',
     'game',
     'resume',
+    'config'
     # 'survey'
 ]+[
     # 3rd apps
