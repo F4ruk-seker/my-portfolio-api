@@ -9,6 +9,7 @@ from message.models import MessageModel
 from game.models import GameVideoModel
 from analytical.api.serializers import ViewSerializer
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from config.utils import EncryptionService
 
 
 class UserFlow(APIView):
@@ -24,12 +25,13 @@ class UserFlow(APIView):
         }
         one_hour_ago = time_ranges.get(request.query_params.get('last'), 'h')
         order = request.query_params.get('order', 'ascend')
-        user_ip = kwargs.get('ip')
+        user_ip = EncryptionService().encrypt_data(kwargs.get('ip'))
         views = ViewModel.objects.filter(
             ip_address=user_ip,
             visit_time__gte=one_hour_ago,
         ).order_by('visit_time' if order == 'ascend' else '-visit_time')
         view_data = ViewSerializer(views, many=True).data
+        view_data['ip_address'] = EncryptionService().decrypt_data(user_ip)
         for view in view_data:
             view['action'] = self.get_view_type(view.get('id'))
         return Response(view_data)
