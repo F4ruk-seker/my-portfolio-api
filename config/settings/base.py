@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'todo',
     'game',
     'resume',
+    'wall',
     'config'
     # 'survey'
 ]+[
