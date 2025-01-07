@@ -15,6 +15,10 @@ class TurkishAutoSlugField(AutoSlugField):
         return slugify(unidecode(content))
 
 
+def get_default_custom_data() -> dict:
+    return {}
+
+
 class ContentModel(models.Model):
     class LanguageType(models.TextChoices):
         ENG = "1", "English"
@@ -46,6 +50,7 @@ class ContentModel(models.Model):
     view = models.ManyToManyField('analytical.ViewModel', blank=True, default=None, editable=True)
     is_featured = models.BooleanField(default=False)
     language_type = models.CharField(max_length=1, choices=LanguageType, default=LanguageType.ENG)
+    custom_data = models.JSONField(default=get_default_custom_data, blank=True, null=True)
 
     def get_view(self):
         return self.view.all()
